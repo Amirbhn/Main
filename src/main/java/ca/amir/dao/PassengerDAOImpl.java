@@ -29,7 +29,7 @@ public class PassengerDAOImpl implements PassengerDAO {
         // session.beginTransaction() at the beginning and session.getTransaction().commit() at the end
 
         // get the current hibernate session
-        Session currentSession = sessionFactory.getCurrentSession();
+        Session currentSession = sessionFactory.openSession();
 
         // create a query
         Query<Passenger> theQuery = currentSession.createQuery("from Passenger order by lastName", Passenger.class);
