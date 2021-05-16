@@ -1,6 +1,5 @@
 package ca.amir.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.amir.entity.Passenger;
@@ -31,19 +30,19 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     @Transactional
-    public ArrayList<Passenger> getListOfPassengersBasedOnTheDestinationCity(String theCity){
+    public List<Passenger> getListOfPassengersBasedOnTheDestinationCity(String theCity){
         return passengerDAO.getListOfPassengersBasedOnTheDestinationCity(theCity);
     }
 
     @Override
     @Transactional
-    public ArrayList<Passenger> getListOfPassengersBasedOnTheDepartureDate(String theDepartureDate){
+    public List<Passenger> getListOfPassengersBasedOnTheDepartureDate(String theDepartureDate){
         return passengerDAO.getListOfPassengersBasedOnTheDepartureDate(theDepartureDate);
     }
 
     @Override
     @Transactional
-    public ArrayList<Passenger>  getListOfPassengersBasedOnTheDepartureDateAndDestinationCity(String theDepartureDate, String theDestinationCity){
+    public List<Passenger> getListOfPassengersBasedOnTheDepartureDateAndDestinationCity(String theDepartureDate, String theDestinationCity){
         return passengerDAO.getListOfPassengersBasedOnTheDepartureDateAndDestinationCity(theDepartureDate,theDestinationCity);
     }
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ca.amir.entity.Passenger;
 import ca.amir.service.PassengerService;
 
+import javax.transaction.Transactional;
+
 @Controller
 @RequestMapping("/passenger")
 public class PassengerController {
@@ -21,6 +23,7 @@ public class PassengerController {
     private PassengerService passengerService;
 
     @GetMapping("/list")
+    @Transactional
     public String listPassengers(Model theModel) {
 
         // get customers from the dao

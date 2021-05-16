@@ -46,8 +46,8 @@ public class PassengerRestController {
 
     // Show list of passengers based on the destination city
     @GetMapping("/passengers/city/{passengerDestination}")
-    public ArrayList<Passenger> showListOfPassengersBasedOnTheDestinationCity(@PathVariable String passengerDestination) {
-        ArrayList<Passenger> ListOfPassengersBasedOnTheDestinationCity =
+    public List<Passenger> showListOfPassengersBasedOnTheDestinationCity(@PathVariable String passengerDestination) {
+        List<Passenger> ListOfPassengersBasedOnTheDestinationCity =
                 passengerService.getListOfPassengersBasedOnTheDestinationCity(passengerDestination);
         return ListOfPassengersBasedOnTheDestinationCity;
     }
@@ -62,16 +62,16 @@ public class PassengerRestController {
 
     // Show list of all passengers by departure date
     @GetMapping("/passengers/departuredate/{passengerDepartureDate}")
-    public ArrayList<Passenger> getAllPassengersByDepartureDate(@PathVariable String passengerDepartureDate) {
-        ArrayList<Passenger> ListOfPassengersBasedOnTheDepartureDate =
+    public List<Passenger> getAllPassengersByDepartureDate(@PathVariable String passengerDepartureDate) {
+        List<Passenger> ListOfPassengersBasedOnTheDepartureDate =
                 passengerService.getListOfPassengersBasedOnTheDepartureDate(passengerDepartureDate);
         return ListOfPassengersBasedOnTheDepartureDate;
     }
 
     // Show list of all passengers by departure date and destination city
     @GetMapping("/passengers/find/date/{passengerDepartureDate}/city/{passengerDestinationCity}")
-    public ArrayList<Passenger> showAllPassengersByDepartureDateAndDestinationCity(@PathVariable String passengerDepartureDate) {
-        ArrayList<Passenger> ListOfPassengersBasedOnTheDepartureDate =
+    public List<Passenger> showAllPassengersByDepartureDateAndDestinationCity(@PathVariable String passengerDepartureDate) {
+        List<Passenger> ListOfPassengersBasedOnTheDepartureDate =
                 passengerService.getListOfPassengersBasedOnTheDepartureDate(passengerDepartureDate);
         return ListOfPassengersBasedOnTheDepartureDate;
     }
