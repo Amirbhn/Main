@@ -18,7 +18,11 @@ public class PassengerDAOImpl implements PassengerDAO {
     // need to inject the session factory
     // SessionFactory is a bean defined in spring-hibernate-crud.xml
 
-    private EntityManager em;
+    private final EntityManager em;
+
+    public PassengerDAOImpl(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public List<Passenger> getPassengers() {
