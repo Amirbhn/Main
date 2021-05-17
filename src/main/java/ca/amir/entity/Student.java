@@ -6,12 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
@@ -19,23 +13,23 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "studentId")
+    @Column(name = "student_Id")
     private int studentId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "student_name")
+    private String studentName;
 
-    @Column(name = "family")
-    private String family;
+    @Column(name = "student_family")
+    private String studentFamily;
 
-    @Column(name = "birthdate")
-    private String birthdate;
+    @Column(name = "student_birthdate")
+    private String studentBirthdate;
 
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "student_gender")
+    private String studentGender;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "student_email")
+    private String studentEmail;
 
     public Student() {
     }
@@ -48,55 +42,54 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String name) {
+        this.studentName = name;
     }
 
-    public String getFamily() {
-        return family;
+    public String getStudentFamily() {
+        return studentFamily;
     }
 
-    public void setFamily(String family) {
-        this.family = family;
+    public void setStudentFamily(String family) {
+        this.studentFamily = family;
     }
 
-    public String getBirthdate() {
-        return birthdate;
+    public String getStudentBirthdate() {
+        return studentBirthdate;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+    public void setStudentBirthdate(String birthdate) {
+        this.studentBirthdate = birthdate;
     }
 
-    public String getGender() {
-        return gender;
+    public String getStudentGender() {
+        return studentGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setStudentGender(String gender) {
+        this.studentGender = gender;
     }
 
-    public String getEmail() {
-        return email;
+    public String getStudentEmail() {
+        return studentEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setStudentEmail(String email) {
+        this.studentEmail = email;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-
-                ", name='" + name + '\'' +
-                ", family='" + family + '\'' +
-                ", birthdate='" + birthdate + '\'' +
-                ", gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
+                ", name='" + studentName + '\'' +
+                ", family='" + studentFamily + '\'' +
+                ", birthdate='" + studentBirthdate + '\'' +
+                ", gender='" + studentGender + '\'' +
+                ", email='" + studentEmail + '\'' +
                 '}';
     }
 }

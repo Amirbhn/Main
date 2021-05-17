@@ -3,24 +3,22 @@ package ca.amir.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "studentCourse")
+@Table(name = "student_course")
 public class StudentCourse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "studentCourseId")
+    @Column(name = "student_course_id")
     private int studentCourseId;
 
     @ManyToOne
-    @JoinColumn(name = "studentId", nullable = false)
+    @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "courseId", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
-    @Column(name = "grade")
-    private int grade;
 
     public StudentCourse() {
     }
@@ -49,12 +47,6 @@ public class StudentCourse {
         this.course = course;
     }
 
-    public int getGrade() {
-        return grade;
-    }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
 
 }

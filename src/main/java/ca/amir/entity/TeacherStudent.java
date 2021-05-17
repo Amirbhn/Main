@@ -9,7 +9,7 @@ public class TeacherStudent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teacherStudentId")
+    @Column(name = "teacher_student_id")
     private int teacherStudentId;
 
     @ManyToOne
@@ -18,8 +18,11 @@ public class TeacherStudent {
 
     @ManyToOne
     @JoinColumn(name = "studentId", nullable = false)
-
     private Student student;
+
+    @Column(name = "grade")
+    private int grade;
+
 
     public TeacherStudent() {
     }
@@ -46,5 +49,13 @@ public class TeacherStudent {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 }

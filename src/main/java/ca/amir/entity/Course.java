@@ -1,5 +1,7 @@
 package ca.amir.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,13 +12,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "course")
 public class Course {
-
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "courseID")
+    @Column(name = "course_id")
     private int courseID;
 
-    @Column(name = "courseName")
+    @Column(name = "course_name")
     private String courseName;
 
     public Course() {

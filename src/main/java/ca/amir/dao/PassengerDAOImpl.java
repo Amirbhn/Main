@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
 public class PassengerDAOImpl implements PassengerDAO {
     // need to inject the session factory
     // SessionFactory is a bean defined in spring-hibernate-crud.xml
-    @Autowired
+
     private EntityManager em;
 
     @Override
