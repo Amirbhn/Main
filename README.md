@@ -6,7 +6,7 @@ docker run \
     --rm \
     -it \
     -p 3306:3306 \
-    -e MYSQL_DATABASE=passenger_tracker \
+    -e MYSQL_DATABASE=amirdb \
     -e MYSQL_USER=amir \
     -e MYSQL_PASSWORD=Ab#77886951 \
     -e MYSQL_ROOT_PASSWORD=root \
