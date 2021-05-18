@@ -1,8 +1,9 @@
 package ca.amir.dao;
-
+import ca.amir.entity.*;
 import java.util.List;
 
 import ca.amir.entity.Passenger;
+import ca.amir.entity.Student;
 import org.springframework.stereotype.Repository;
 import ca.amir.entity.Course;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,19 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
+    public List<Student> getAllStudents() {
+
+        // create a query
+        TypedQuery<Student> theQuery = em.createQuery("from Student order by studentName", Student.class);
+
+        // execute query and get result list
+        List<Student> students = theQuery.getResultList();
+
+        // return the results
+        return students;
+    }
+
+    @Override
     @Transactional
     public void saveCourse(Course theCourse) {
         // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
@@ -44,17 +58,46 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
+    @Transactional
+    public void saveStudent(Student theStudent) {
+        // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
+        //
+        em.merge(theStudent);
+    }
+
+    @Override
     public Course getCourseById(int courseId) {
         // now retrieve/read from database using the primary key
         Course theCourse = em.find(Course.class, courseId);
         return theCourse;
     }
+
+    @Override
+    public Student getStudentById(int studentId) {
+        // now retrieve/read from database using the primary key
+        Student theStudent = em.find(Student.class, studentId);
+        return theStudent;
+    }
+
+
     @Override
     @Transactional
     public  void deleteCourse(int theCourseId){
         // delete object with primary key
         em.createNativeQuery("delete from Course where course_id=:courseId", Course.class)
                 .setParameter("courseId", theCourseId)
+                .executeUpdate();
+        /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
+        theQuery.setParameter("courseId", theCourseId);
+        theQuery.executeUpdate();*/
+    }
+
+    @Override
+    @Transactional
+    public  void deleteStudent(int theStudentId){
+        // delete object with primary key
+        em.createNativeQuery("delete from Student where student_id=:studentId", Student.class)
+                .setParameter("studentId", theStudentId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
         theQuery.setParameter("courseId", theCourseId);

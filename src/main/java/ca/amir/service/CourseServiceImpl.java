@@ -1,4 +1,5 @@
 package ca.amir.service;
+import ca.amir.entity.*;
 
 import java.util.List;
 
@@ -21,8 +22,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Student> getAllStudents() {
+        return courseDAO.getAllStudents();
+    }
+
+    @Override
     public void saveCourse(Course theCourse) {
         courseDAO.saveCourse(theCourse);
+    }
+
+    @Override
+    public void saveStudent(Student theStudent) {
+        courseDAO.saveStudent(theStudent);
     }
 
     @Override
@@ -31,8 +42,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Student getStudentById(int theStudentId) {
+        return courseDAO.getStudentById(theStudentId);
+    }
+
+    @Override
     public void deleteCourse(int theCourseId) {
         courseDAO.deleteCourse(theCourseId);
+    }
+
+    @Override
+    public void deleteStudent(int theStudentId) {
+        courseDAO.deleteStudent(theStudentId);
     }
 
 

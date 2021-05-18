@@ -23,7 +23,8 @@
         <!--  add our html table here -->
         <table>
             <tr>
-                <th>First Name</th>
+                <th>  First Name  </th>
+                <br/>
                 <th>Last Name</th>
                 <th>Birthdate</th>
                 <th>Email</th>

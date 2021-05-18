@@ -2,7 +2,7 @@
 package ca.amir.controller;
 
 import java.util.List;
-
+import ca.amir.entity.*;
 import ca.amir.service.CourseService;
 import ca.amir.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,27 @@ public class MainController {
 
         // get customers from the dao
         List<Course> theCourses = courseService.getAllCourses();
+        List<Student> theStudents = courseService.getAllStudents();
 
         // add the customers to the model
         theModel.addAttribute("allCourses", theCourses);
+        theModel.addAttribute("allStudents", theStudents);
+        return "list_of_all_entities";
+    }
+
+
+    @GetMapping("/allStudents")
+    @Transactional
+    public String listOfAllStudents(Model theModel) {
+
+        // get Students from the dao
+        List<Student> theStudents = courseService.getAllStudents();
+        List<Course> theCourses = courseService.getAllCourses();
+
+
+        // add the customers to the model
+        theModel.addAttribute("allCourses", theCourses);
+        theModel.addAttribute("allStudents", theStudents);
         return "list_of_all_entities";
     }
 
@@ -45,6 +63,14 @@ public class MainController {
         return "course-form";
     }
 
+    @GetMapping("/showFormForAddStudent")
+    public String showFormForAddStudent(Model theModel) {
+        // create model attribute to bind form data
+        Student theStudent = new Student();
+        theModel.addAttribute("student", theStudent);
+        return "student-form";
+    }
+
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Course theCourse) {
         // save the Course using our service
@@ -52,7 +78,14 @@ public class MainController {
         return "redirect:/main/allCourses";
     }
 
-    @GetMapping("/showFormForUpdateCourse")
+    @PostMapping("/saveStudent")
+    public String saveStudent(@ModelAttribute("student") Student theStudent) {
+        // save the Student using our service
+        courseService.saveStudent(theStudent);
+        return "redirect:/main/allStudents";
+    }
+
+   @GetMapping("/showFormForUpdateCourse")
     public String showFormForUpdateCourse(@RequestParam("courseId") int theCourseId, Model theModel) {
         // get the passenger from our service
         Course theCourse = courseService.getCourseById(theCourseId);
@@ -62,11 +95,28 @@ public class MainController {
         return "course-form";
     }
 
+    @GetMapping("/showFormForUpdateStudent")
+    public String showFormForUpdateStudent(@RequestParam("studentId") int theStudentId, Model theModel) {
+        // get the passenger from our service
+        Student theStudent = courseService.getStudentById(theStudentId);
+        // set Student as a model attribute to pre-populate the form
+        theModel.addAttribute("student", theStudent);
+        // send over to our form
+        return "student-form";
+    }
+
     @GetMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseId") int theCourseId) {
         // delete the passengers
         courseService.deleteCourse(theCourseId);
         return "redirect:/main/allCourses";
+    }
+
+    @GetMapping("/deleteStudent")
+    public String deleteStudent(@RequestParam("studentId") int theStudentId) {
+        // delete the Students
+        courseService.deleteStudent(theStudentId);
+        return "redirect:/main/allStudents";
     }
 }
 
