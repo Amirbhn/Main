@@ -1,13 +1,9 @@
 package ca.amir.dao;
 
-
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-
 import ca.amir.entity.Passenger;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -40,9 +36,10 @@ public class PassengerDAOImpl implements PassengerDAO {
     }
 
     @Override
+    @Transactional
     public void savePassenger(Passenger thePassenger) {
         // save/update the passenger ... finally LOL
-        em.persist(thePassenger);
+        em.merge(thePassenger);
     }
 
     @Override
@@ -89,10 +86,12 @@ public class PassengerDAOImpl implements PassengerDAO {
     }
 
     @Override
+    @Transactional
     public void deletePassenger(int theId) {
         // delete object with primary key
-        TypedQuery<Passenger> theQuery = em.createQuery("delete from Passenger where id=:passengerId", Passenger.class);
-        theQuery.setParameter("passengerId", theId);
-        theQuery.executeUpdate();
+
+         em.createNativeQuery("delete from Passenger where id=:passengerId", Passenger.class)
+        .setParameter("passengerId", theId)
+        .executeUpdate();
     }
 }
