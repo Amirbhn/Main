@@ -23,5 +23,12 @@ public interface CourseDAO {
     List<Teacher> getAllTeachers();
     void saveTeacher(Teacher theTeacher);
 
+    //TeacherCourse
+    TeacherCourse getTeacherCourseById(int theTeacherCourseId);
+    void deleteTeacherCourse(int theSTeacherCourseId);
+    List<TeacherCourse> getAllTeacherCourses();
+    void saveTeacherCourse(TeacherCourse theTeacherCourse);
+
+
 
 }

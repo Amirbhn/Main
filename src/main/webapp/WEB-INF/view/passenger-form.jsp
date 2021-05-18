@@ -8,11 +8,11 @@
 
 	<link type="text/css"
 		  rel="stylesheet"
-		  href="${pageContext.request.contextPath}/resources/css/style.css">
+		  href="${pageContext.request.contextPath}/resources/static/style.css">
 
 	<link type="text/css"
 		  rel="stylesheet"
-		  href="${pageContext.request.contextPath}/resources/css/add-passenger-style.css">
+		  href="${pageContext.request.contextPath}/resources/static/add-passenger-style.css">
 </head>
 
 <body>

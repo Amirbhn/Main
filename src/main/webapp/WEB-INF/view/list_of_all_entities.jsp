@@ -6,7 +6,7 @@
     <title>List Of All Entities</title>
     <!-- reference our style sheet -->
     <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/style.css"/>
+          href="${pageContext.request.contextPath}/resources/static/css/style.css"/>
 </head>
 <body>
 <div id="wrapper">
@@ -29,18 +29,10 @@
             <!-- loop over and print our passengers -->
             <c:forEach var="tempCourse" items="${allCourses}">
 
-                <!--
-                construct an "update" link with passenger id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/passenger/showFormForUpdate?passengerId=5
-                -->
                 <c:url var="updateCourseLink" value="/main/showFormForUpdateCourse">
                     <c:param name="courseId" value="${tempCourse.courseID}"/>
                 </c:url>
 
-                <!--
-                Construct an "delete" link with passenger id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/customer/delete?customerId=5
-                -->
                 <c:url var="deleteCourseLink" value="/main/deleteCourse">
                     <c:param name="courseId" value="${tempCourse.courseID}"/>
                 </c:url>
@@ -61,7 +53,6 @@
 
         <br><br/>
 
-
         <%---table for Student--------------------------------------------------------------------------------------%>
 
         <input type="button" value="Add Student"
@@ -80,18 +71,11 @@
             <!-- loop over and print our Students -->
             <c:forEach var="tempStudent" items="${allStudents}">
 
-                <!--
-                construct an "update" link with Student id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/Student/showFormForUpdate?passengerId=5
-                -->
                 <c:url var="updateStudentLink" value="/main/showFormForUpdateStudent">
                     <c:param name="studentId" value="${tempStudent.studentId}"/>
                 </c:url>
 
-                <!--
-                Construct an "delete" link with Student id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/customer/delete?customerId=5
-                -->
+
                 <c:url var="deleteStudentLink" value="/main/deleteStudent">
                     <c:param name="studentId" value="${tempStudent.studentId}"/>
                 </c:url>
@@ -129,18 +113,12 @@
             <!-- loop over and print our passengers -->
             <c:forEach var="tempTeacher" items="${allTeachers}">
 
-                <!--
-                construct an "update" link with passenger id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/passenger/showFormForUpdate?passengerId=5
-                -->
+
                 <c:url var="updateTeacherLink" value="/main/showFormForUpdateTeacher">
                     <c:param name="teacherId" value="${tempTeacher.teacherId}"/>
                 </c:url>
 
-                <!--
-                Construct an "delete" link with passenger id
-                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/customer/delete?customerId=5
-                -->
+
                 <c:url var="deleteTeacherLink" value="/main/deleteTeacher">
                     <c:param name="teacherId" value="${tempTeacher.teacherId}"/>
                 </c:url>
@@ -160,6 +138,8 @@
             </c:forEach>
         </table>
         <br><br/>
+
+        <a href="showFormForAddTeacherCourse">Teacher Click Here To Select What Course he wants to Teach</a>
 <%-- ---------------------------------------------------------------------------------------------------------------%>
     </div>
 </div>

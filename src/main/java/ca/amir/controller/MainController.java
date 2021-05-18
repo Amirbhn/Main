@@ -2,9 +2,9 @@
 package ca.amir.controller;
 
 import java.util.List;
+
 import ca.amir.entity.*;
 import ca.amir.service.CourseService;
-import ca.amir.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ public class MainController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/allCourses")
+    @GetMapping("/allEntities")
     @Transactional
     public String listOfAllCourses(Model theModel) {
 
@@ -40,22 +40,6 @@ public class MainController {
         theModel.addAttribute("allTeachers", theTeachers);
         return "list_of_all_entities";
     }
-
-
-/*    @GetMapping("/allStudents")
-    @Transactional
-    public String listOfAllStudents(Model theModel) {
-
-        // get Students from the dao
-        List<Student> theStudents = courseService.getAllStudents();
-        List<Course> theCourses = courseService.getAllCourses();
-
-
-        // add the customers to the model
-        theModel.addAttribute("allCourses", theCourses);
-        theModel.addAttribute("allStudents", theStudents);
-        return "list_of_all_entities";
-    }*/
 
     @GetMapping("/showFormForAddCourse")
     public String showFormForAddCourse(Model theModel) {
@@ -81,28 +65,48 @@ public class MainController {
         return "teacher-form";
     }
 
+    @GetMapping("/showFormForAddTeacherCourse")
+    public String showFormForAddTeacherCourse(Model theModel) {
+        TeacherCourse theTeacherCourse = new TeacherCourse();
+        Course course = new Course();
+        Teacher teacher = new Teacher();
+        theModel.addAttribute("teacherCourse", theTeacherCourse);
+        theModel.addAttribute("teacher", teacher);
+        theModel.addAttribute("course", course);
+
+        return "/teacher-course-form";
+    }
+
+
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Course theCourse) {
         // save the Course using our service
         courseService.saveCourse(theCourse);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
 
     @PostMapping("/saveStudent")
     public String saveStudent(@ModelAttribute("student") Student theStudent) {
         // save the Student using our service
         courseService.saveStudent(theStudent);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
 
     @PostMapping("/saveTeacher")
     public String saveTeacher(@ModelAttribute("teacher") Teacher theTeacher) {
         // save the Student using our service
         courseService.saveTeacher(theTeacher);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
 
-   @GetMapping("/showFormForUpdateCourse")
+    @PostMapping("/saveTeacherCourse")
+    public String saveTeacherCourse(@ModelAttribute("teacherCourse") TeacherCourse theTeacherCourse) {
+        // save the Student using our service
+        courseService.saveTeacherCourse(theTeacherCourse);
+        return "redirect:/main/allEntities";
+    }
+
+    @GetMapping("/showFormForUpdateCourse")
     public String showFormForUpdateCourse(@RequestParam("courseId") int theCourseId, Model theModel) {
         // get the passenger from our service
         Course theCourse = courseService.getCourseById(theCourseId);
@@ -122,35 +126,60 @@ public class MainController {
         return "student-form";
     }
 
- @GetMapping("/showFormForUpdateTeacher")
+    @GetMapping("/showFormForUpdateTeacher")
     public String showFormForUpdateTeacher(@RequestParam("teacherId") int theTeacherId, Model theModel) {
         // get the Teacher from our service
-     Teacher theTeacher = courseService.getTeacherById(theTeacherId);
+        Teacher theTeacher = courseService.getTeacherById(theTeacherId);
         // set Teacher as a model attribute to pre-populate the form
         theModel.addAttribute("teacher", theTeacher);
         // send over to our form
         return "teacher-form";
     }
 
+    @GetMapping("/showFormForUpdateTeacherCourse")
+    public String showFormForUpdateTeacherCourse(@RequestParam("teacherCourseId") int theTeacherCourseId, Model theModel) {
+        // get the Teacher from our service
+        TeacherCourse theTeacherCourse = courseService.getTeacherCourseById(theTeacherCourseId);
+        // set Teacher as a model attribute to pre-populate the form
+        theModel.addAttribute("teacherCourse", theTeacherCourse);
+        // send over to our form
+        return "teacher-course-form";
+    }
+
     @GetMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseId") int theCourseId) {
         // delete the passengers
         courseService.deleteCourse(theCourseId);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
 
     @GetMapping("/deleteStudent")
     public String deleteStudent(@RequestParam("studentId") int theStudentId) {
         // delete the Students
         courseService.deleteStudent(theStudentId);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
 
     @GetMapping("/deleteTeacher")
     public String deleteTeacher(@RequestParam("teacherId") int theTeacherId) {
         // delete the Teacher
         courseService.deleteTeacher(theTeacherId);
-        return "redirect:/main/allCourses";
+        return "redirect:/main/allEntities";
     }
+
+    @GetMapping("/deleteTeacherCourse")
+    public String deleteTeacherCourse(@RequestParam("teacherCourseId") int theTeacherCourseId) {
+        // delete the TeacherCourse
+        courseService.deleteTeacherCourse(theTeacherCourseId);
+        return "redirect:/main/allEntities";
+    }
+
 }
 
+/*    @GetMapping("/showFormForAddCourse")
+    public String showFormForAddCourse(Model theModel) {
+        // create model attribute to bind form data
+        Course theCourse = new Course();
+        theModel.addAttribute("course", theCourse);
+        return "course-form";
+    }*/
