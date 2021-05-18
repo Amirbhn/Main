@@ -14,4 +14,10 @@ public interface CourseService {
     void deleteStudent(int theStudentId);
     List<Student> getAllStudents();
     void saveStudent(Student theStudent);
+
+    //Teacher
+    Teacher getTeacherById(int theTeacherId);
+    void deleteTeacher(int theSTeacherId);
+    List<Teacher> getAllTeachers();
+    void saveTeacher(Teacher theTeacher);
 }

@@ -50,6 +50,19 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
+    public List<Teacher> getAllTeachers() {
+
+        // create a query
+        TypedQuery<Teacher> theQuery = em.createQuery("from Teacher order by teacherName", Teacher.class);
+
+        // execute query and get result list
+        List<Teacher> teachers = theQuery.getResultList();
+
+        // return the results
+        return teachers;
+    }
+
+    @Override
     @Transactional
     public void saveCourse(Course theCourse) {
         // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
@@ -66,6 +79,14 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
+    @Transactional
+    public void saveTeacher(Teacher theTeacher) {
+        // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
+        //
+        em.merge(theTeacher);
+    }
+
+    @Override
     public Course getCourseById(int courseId) {
         // now retrieve/read from database using the primary key
         Course theCourse = em.find(Course.class, courseId);
@@ -77,6 +98,13 @@ public class CourseDAOImpl implements CourseDAO {
         // now retrieve/read from database using the primary key
         Student theStudent = em.find(Student.class, studentId);
         return theStudent;
+    }
+
+    @Override
+    public Teacher getTeacherById(int teacherId) {
+        // now retrieve/read from database using the primary key
+        Teacher theTeacher = em.find(Teacher.class, teacherId);
+        return theTeacher;
     }
 
 
@@ -98,6 +126,18 @@ public class CourseDAOImpl implements CourseDAO {
         // delete object with primary key
         em.createNativeQuery("delete from Student where student_id=:studentId", Student.class)
                 .setParameter("studentId", theStudentId)
+                .executeUpdate();
+        /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
+        theQuery.setParameter("courseId", theCourseId);
+        theQuery.executeUpdate();*/
+    }
+
+    @Override
+    @Transactional
+    public  void deleteTeacher(int theTeacherId){
+        // delete object with primary key
+        em.createNativeQuery("delete from Teacher where teacher_id=:teacherId", Teacher.class)
+                .setParameter("teacherId", theTeacherId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
         theQuery.setParameter("courseId", theCourseId);

@@ -27,6 +27,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Teacher> getAllTeachers() {
+        return courseDAO.getAllTeachers();
+    }
+
+    @Override
     public void saveCourse(Course theCourse) {
         courseDAO.saveCourse(theCourse);
     }
@@ -34,6 +39,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void saveStudent(Student theStudent) {
         courseDAO.saveStudent(theStudent);
+    }
+
+    @Override
+    public void saveTeacher(Teacher theTeacher) {
+        courseDAO.saveTeacher(theTeacher);
     }
 
     @Override
@@ -47,6 +57,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Teacher getTeacherById(int theTeacherId) {
+        return courseDAO.getTeacherById(theTeacherId);
+    }
+
+    @Override
     public void deleteCourse(int theCourseId) {
         courseDAO.deleteCourse(theCourseId);
     }
@@ -54,6 +69,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteStudent(int theStudentId) {
         courseDAO.deleteStudent(theStudentId);
+    }
+
+    @Override
+    public void deleteTeacher(int theTeacherId) {
+        courseDAO.deleteTeacher(theTeacherId);
     }
 
 

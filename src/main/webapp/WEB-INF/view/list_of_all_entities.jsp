@@ -20,7 +20,7 @@
                onclick="window.location.href='showFormForAddCourse'; return false;"
                class="add-button"
         />
-<%--table for Course--%>
+<%--table for    Course--------------------------------------------------------------------------------------------%>
         <table>
             <tr>
                 <th>Course Name</th>
@@ -58,14 +58,12 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>
-</div>
+
         <br><br/>
 
 
-        <%---table for Student-------------------------------------------------------%>
-<div id="container1">
-    <div id="content1">
+        <%---table for Student--------------------------------------------------------------------------------------%>
+
         <input type="button" value="Add Student"
                onclick="window.location.href='showFormForAddStudent'; return false;"
                class="add-button"
@@ -116,6 +114,53 @@
             </c:forEach>
         </table>
 
+        <br><br/>
+<%--        Teacher Table -----------------------------------------------------------------------------------------%>
+        <input type="button" value="Add Teacher"
+               onclick="window.location.href='showFormForAddTeacher'; return false;"
+               class="add-button"
+        />
+        <table>
+            <tr>
+                <th>Teacher Name</th>
+                <th>Teacher Email</th>
+                <th>Action</th>
+            </tr>
+            <!-- loop over and print our passengers -->
+            <c:forEach var="tempTeacher" items="${allTeachers}">
+
+                <!--
+                construct an "update" link with passenger id
+                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/passenger/showFormForUpdate?passengerId=5
+                -->
+                <c:url var="updateTeacherLink" value="/main/showFormForUpdateTeacher">
+                    <c:param name="teacherId" value="${tempTeacher.teacherId}"/>
+                </c:url>
+
+                <!--
+                Construct an "delete" link with passenger id
+                http://localhost:8080/00-Spring-Hibernate-CRUD-Final/customer/delete?customerId=5
+                -->
+                <c:url var="deleteTeacherLink" value="/main/deleteTeacher">
+                    <c:param name="teacherId" value="${tempTeacher.teacherId}"/>
+                </c:url>
+
+                <tr>
+                    <td>${tempTeacher.teacherName}</td>
+                    <td>${tempTeacher.teacherEmail}</td>
+                    <td>
+                        <!-- display the update link -->
+                        <a href="${updateTeacherLink}">Update</a>
+                        |
+                        <a href="${deleteTeacherLink}"
+                           onclick="if (!(confirm('Are you sure you want to delete this Teacher?'))) return false">Delete</a>
+                    </td>
+
+                </tr>
+            </c:forEach>
+        </table>
+        <br><br/>
+<%-- ---------------------------------------------------------------------------------------------------------------%>
     </div>
 </div>
 </body>

@@ -32,15 +32,17 @@ public class MainController {
         // get customers from the dao
         List<Course> theCourses = courseService.getAllCourses();
         List<Student> theStudents = courseService.getAllStudents();
+        List<Teacher> theTeachers = courseService.getAllTeachers();
 
         // add the customers to the model
         theModel.addAttribute("allCourses", theCourses);
         theModel.addAttribute("allStudents", theStudents);
+        theModel.addAttribute("allTeachers", theTeachers);
         return "list_of_all_entities";
     }
 
 
-    @GetMapping("/allStudents")
+/*    @GetMapping("/allStudents")
     @Transactional
     public String listOfAllStudents(Model theModel) {
 
@@ -53,7 +55,7 @@ public class MainController {
         theModel.addAttribute("allCourses", theCourses);
         theModel.addAttribute("allStudents", theStudents);
         return "list_of_all_entities";
-    }
+    }*/
 
     @GetMapping("/showFormForAddCourse")
     public String showFormForAddCourse(Model theModel) {
@@ -71,6 +73,14 @@ public class MainController {
         return "student-form";
     }
 
+    @GetMapping("/showFormForAddTeacher")
+    public String showFormForAddTeacher(Model theModel) {
+        // create model attribute to bind form data
+        Teacher theTeacher = new Teacher();
+        theModel.addAttribute("teacher", theTeacher);
+        return "teacher-form";
+    }
+
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Course theCourse) {
         // save the Course using our service
@@ -82,7 +92,14 @@ public class MainController {
     public String saveStudent(@ModelAttribute("student") Student theStudent) {
         // save the Student using our service
         courseService.saveStudent(theStudent);
-        return "redirect:/main/allStudents";
+        return "redirect:/main/allCourses";
+    }
+
+    @PostMapping("/saveTeacher")
+    public String saveTeacher(@ModelAttribute("teacher") Teacher theTeacher) {
+        // save the Student using our service
+        courseService.saveTeacher(theTeacher);
+        return "redirect:/main/allCourses";
     }
 
    @GetMapping("/showFormForUpdateCourse")
@@ -105,6 +122,16 @@ public class MainController {
         return "student-form";
     }
 
+ @GetMapping("/showFormForUpdateTeacher")
+    public String showFormForUpdateTeacher(@RequestParam("teacherId") int theTeacherId, Model theModel) {
+        // get the Teacher from our service
+     Teacher theTeacher = courseService.getTeacherById(theTeacherId);
+        // set Teacher as a model attribute to pre-populate the form
+        theModel.addAttribute("teacher", theTeacher);
+        // send over to our form
+        return "teacher-form";
+    }
+
     @GetMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseId") int theCourseId) {
         // delete the passengers
@@ -116,7 +143,14 @@ public class MainController {
     public String deleteStudent(@RequestParam("studentId") int theStudentId) {
         // delete the Students
         courseService.deleteStudent(theStudentId);
-        return "redirect:/main/allStudents";
+        return "redirect:/main/allCourses";
+    }
+
+    @GetMapping("/deleteTeacher")
+    public String deleteTeacher(@RequestParam("teacherId") int theTeacherId) {
+        // delete the Teacher
+        courseService.deleteTeacher(theTeacherId);
+        return "redirect:/main/allCourses";
     }
 }
 
