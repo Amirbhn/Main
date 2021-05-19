@@ -8,22 +8,43 @@
 </head>
 <body>
 
-<form:form action="showFormForAddTeacherCourse" modelAttribute="teacher">
+<form:form action="showFormForAddTeacherCourse" modelAttribute="objects">
 
-    <form:select path="teacherName">
-        <form:options items="${teacher.teacherName}"/>
-    </form:select>
+    <table>
+        <tr>
+            <td>
+                Select a teacher:
+            </td>
+            <td>
+                <select name="teacherId">
+                    <c:forEach items="${objects.teachers}" var="teacher">
+                        <option value="${teacher.teacherId}">${teacher.teacherName}</option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
 
-</form:form>
+        <tr>
+            <td>
+                Select a course:
+            </td>
+            <td>
+                <select name="courseId">
+                    <c:forEach items="${objects.courses}" var="course">
+                        <option value="${course.courseID}">${course.courseName}</option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
 
-<%-- Course Dropdown List     --%>
+        <tr>
+            <td colspan="2">
+                <form:button name="submit" value="1">Register!</form:button>
+            </td>
+        </tr>
+    </table>
 
-<form:form action="showFormForAddTeacherCourse" modelAttribute="teacherCourse">
-
-    <form:select path="course">
-        <form:options items="${course.courseName}"/>
-    </form:select>
-
+    <br/>
 
 </form:form>
 </body>

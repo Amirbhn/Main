@@ -1,18 +1,17 @@
 
 package ca.amir.controller;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import ca.amir.entity.*;
 import ca.amir.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import ca.amir.entity.Course;
 
@@ -65,15 +64,28 @@ public class MainController {
         return "teacher-form";
     }
 
-    @GetMapping("/showFormForAddTeacherCourse")
-    public String showFormForAddTeacherCourse(Model theModel) {
-        TeacherCourse theTeacherCourse = new TeacherCourse();
-        Course course = new Course();
-        Teacher teacher = new Teacher();
-        theModel.addAttribute("teacherCourse", theTeacherCourse);
-        theModel.addAttribute("teacher", teacher);
-        theModel.addAttribute("course", course);
+    @RequestMapping(value = "/showFormForAddTeacherCourse", method = {RequestMethod.GET, RequestMethod.POST})
+    public String showFormForAddTeacherCourse(
+            Model theModel,
+            @RequestParam(value = "teacherId", required = false) Integer teacherId,
+            @RequestParam(value = "courseId", required = false) Integer courseId,
+            @RequestParam(value = "submit", required = false) String submit
+    ) {
+        if ("1".equals(submit)) {
+            Course course = courseService.getCourseById(courseId);
+            Teacher teacher = courseService.getTeacherById(teacherId);
+            TeacherCourse teacherCourse = new TeacherCourse();
+            teacherCourse.setCourse(course);
+            teacherCourse.setTeacher(teacher);
+            courseService.saveTeacherCourse(teacherCourse);
+        }
 
+        List<Course> courses = courseService.getAllCourses();
+        List<Teacher> teachers = courseService.getAllTeachers();
+        Map<String, Object> objects = new HashMap<>();
+        objects.put("teachers", teachers);
+        objects.put("courses", courses);
+        theModel.addAttribute("objects", objects);
         return "/teacher-course-form";
     }
 
