@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Save Teacher Course</title>
+    <title>Save Student Course</title>
 </head>
 <body>
 
@@ -29,18 +29,14 @@
                 select course(s)
             </td>
             <td>
-                <c:forEach items="${objects.teacherCourses}" var="teacherCourse" >
-                    <input name="courseIdSelected" type="checkbox" value
-                           value="<option "${teacherCourse.course.courseId}">${teacherCourse.course.courseName}
-
+                <c:forEach items="${objects.courses}" var="course" >
+                    <input id="course-${course.courseId}" name="courseIdSelected" type="checkbox" value="${course.courseId}" />
+                    <label for="course-${course.courseId}">${course.courseName}</label>
                 </c:forEach>
             </td>
         </tr>
         <br>
         <tr>
-<%
-    String[] coursesIds = request.getParameterValues("courseIdSelected");
-%>
 
             <td colspan="2">
                 <form:button name="submit" value="1">Add Course(s)!</form:button>

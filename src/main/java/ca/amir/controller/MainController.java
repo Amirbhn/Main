@@ -70,31 +70,26 @@ public class MainController {
     @RequestMapping(value = "/showFormForAddStudentCourse", method = {RequestMethod.GET, RequestMethod.POST})
     public String showFormForAddStudentCourse(Model theModel,
                                               @RequestParam(value = "studentId", required = false) Integer studentId,
-                                              @RequestParam(value = "courseId", required = false) Integer courseId,
-                                              @RequestParam(value = "coursesIds", required = false) String[] coursesIds,
+                                              @RequestParam(value = "courseIdSelected", required = false) Integer[] courseIdSelected,
                                               @RequestParam(value = "submit", required = false) String submit) {
         if ("1".equals(submit)) {
-            for (int i = 0; i <coursesIds.length ; i++) {
-                int courseIdSelected = Integer.parseInt(coursesIds[i]);
+            for (Integer courseId: courseIdSelected) {
                 StudentCourse studentCourse = new StudentCourse();
-                Course course = courseService.getCourseById(courseIdSelected);
+                Course course = courseService.getCourseById(courseId);
                 Student student = courseService.getStudentById(studentId);
                 studentCourse.setStudent(student);
                 studentCourse.setCourse(course);
+                courseService.saveStudentCourse(studentCourse);
             }
-
         }
-
 
         List<Student> students = courseService.getAllStudents();
         List<Course> courses = courseService.getAllCourses();
-        List<TeacherCourse> teacherCourses = courseService.getAllTeacherCourses();
 
         Map<String, Object> objects = new HashMap<>();
-
         objects.put("students", students);
         objects.put("courses", courses);
-        objects.put("teacherCourses", teacherCourses);
+
         theModel.addAttribute("objects", objects);
         return "student-course-form";
     }
