@@ -13,7 +13,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id", nullable = false)
-    private int courseID;
+    private int courseId;
 
     @Column(name = "course_name")
     private String courseName;
@@ -21,12 +21,12 @@ public class Course {
     public Course() {
     }
 
-    public int getCourseID() {
-        return courseID;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public String getCourseName() {
@@ -40,7 +40,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "courseID=" + courseID +
+                "courseId=" + courseId +
                 ", courseName='" + courseName + '\''
                 ;
     }

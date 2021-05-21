@@ -39,7 +39,7 @@
     <form:form action="saveCourse" modelAttribute="course" method="POST">
 
         <!-- need to associate this data with passenger id -->
-        <form:hidden path="courseID"/>
+        <form:hidden path="courseId"/>
 
         <table>
             <tbody>

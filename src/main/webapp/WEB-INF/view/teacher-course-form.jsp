@@ -31,7 +31,7 @@
             <td>
                 <select name="courseId">
                     <c:forEach items="${objects.courses}" var="course">
-                        <option value="${course.courseID}">${course.courseName}</option>
+                        <option value="${course.courseId}">${course.courseName}</option>
                     </c:forEach>
                 </select>
             </td>
@@ -45,6 +45,9 @@
     </table>
 
     <br/>
+    <p>
+        <a href="${pageContext.request.contextPath}/main/allEntities">Back to List</a>
+    </p>
 
 </form:form>
 </body>

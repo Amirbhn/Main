@@ -17,13 +17,20 @@ public interface CourseService {
 
     //Teacher
     Teacher getTeacherById(int theTeacherId);
-    void deleteTeacher(int theSTeacherId);
+    void deleteTeacher(int theTeacherId);
     List<Teacher> getAllTeachers();
     void saveTeacher(Teacher theTeacher);
 
     //TeacherCourse
     TeacherCourse getTeacherCourseById(int theTeacherCourseId);
-    void deleteTeacherCourse(int theSTeacherCourseId);
+    void deleteTeacherCourse(int theTeacherCourseId);
     List<TeacherCourse> getAllTeacherCourses();
     void saveTeacherCourse(TeacherCourse theTeacherCourse);
+
+    //StudentCourse
+    StudentCourse getStudentCourseById(int theStudentCourseId);
+    void deleteStudentCourse(int theStudentCourseId);
+    List<StudentCourse> getAllStudentCourses();
+    void saveStudentCourse(StudentCourse theStudentCourse);
+
 }

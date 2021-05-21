@@ -20,7 +20,7 @@
                onclick="window.location.href='showFormForAddCourse'; return false;"
                class="add-button"
         />
-<%--table for    Course--------------------------------------------------------------------------------------------%>
+<%-------------------------------------------------Course Table---------------------------------------------------%>
         <table>
             <tr>
                 <th>Course Name</th>
@@ -30,11 +30,11 @@
             <c:forEach var="tempCourse" items="${allCourses}">
 
                 <c:url var="updateCourseLink" value="/main/showFormForUpdateCourse">
-                    <c:param name="courseId" value="${tempCourse.courseID}"/>
+                    <c:param name="courseId" value="${tempCourse.courseId}"/>
                 </c:url>
 
                 <c:url var="deleteCourseLink" value="/main/deleteCourse">
-                    <c:param name="courseId" value="${tempCourse.courseID}"/>
+                    <c:param name="courseId" value="${tempCourse.courseId}"/>
                 </c:url>
 
                 <tr>
@@ -53,7 +53,7 @@
 
         <br><br/>
 
-        <%---table for Student--------------------------------------------------------------------------------------%>
+        <%-------------------------------------------- table for Student---------------------------------------------%>
 
         <input type="button" value="Add Student"
                onclick="window.location.href='showFormForAddStudent'; return false;"
@@ -99,7 +99,7 @@
         </table>
 
         <br><br/>
-<%--        Teacher Table -----------------------------------------------------------------------------------------%>
+<%------------------------------------------------- Teacher Table -------------------------------------------------------%>
         <input type="button" value="Add Teacher"
                onclick="window.location.href='showFormForAddTeacher'; return false;"
                class="add-button"
@@ -139,8 +139,79 @@
         </table>
         <br><br/>
 
+
+<%-- -------------------------------------TeacherCourse Table------------------------------------------------------------%>
         <a href="showFormForAddTeacherCourse">Teacher Click Here To Select What Course he wants to Teach</a>
-<%-- ---------------------------------------------------------------------------------------------------------------%>
+
+        <table>
+            <tr>
+                <th>Teacher Name</th>
+                <th>Course Name</th>
+                <th>Action</th>
+            </tr>
+            <!-- loop over and print our passengers -->
+            <c:forEach var="tempTeacherCourse" items="${allTeacherCourses}">
+
+                <c:url var="updateTeacherCourseLink" value="/main/showFormForUpdateTeacherCourse">
+                    <c:param name="teacherCourseId" value="${tempTeacherCourse.teacherCourseId}"/>
+                </c:url>
+
+                <c:url var="deleteTeacherCourseLink" value="/main/deleteTeacherCourse">
+                    <c:param name="teacherCourseId" value="${tempTeacherCourse.teacherCourseId}"/>
+                </c:url>
+
+                <tr>
+                    <td>${tempTeacherCourse.course.courseName}</td>
+                    <td>${tempTeacherCourse.teacher.teacherName}</td>
+                    <td>
+                        <!-- display the update link -->
+                        <a href="${updateTeacherCourseLink}">Update</a>
+                        |
+                        <a href="${deleteTeacherCourseLink}"
+                           onclick="if (!(confirm('Are you sure you want to delete this TeacherCourse?'))) return false">Delete</a>
+                    </td>
+
+                </tr>
+            </c:forEach>
+        </table>
+        <br><br/>
+<%-------------------------------------------------StudentCourse Table-----------------------------------------------%>
+        <a href="/main/showFormForAddStudentCourse">Student Click Here To Select What Course(s) They wants to Study</a>
+
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>Course Name</th>
+                <th>Action</th>
+            </tr>
+
+            <!-- loop over and print our StudentCourseObjects -->
+            <c:forEach var="tempStudentCourse" items="${allStudentCourses}">
+
+                <c:url var="updateStudentCourseLink" value="/main/showFormForUpdateStudentCourse">
+                    <c:param name="studentCourseId" value="${tempStudentCourse.studentCourseId}"/>
+                </c:url>
+
+                <c:url var="deleteStudentCourseLink" value="/main/deleteStudentCourse">
+                    <c:param name="studentCourseId" value="${tempStudentCourse.studentCourseId}"/>
+                </c:url>
+
+                <tr>
+                    <td>${tempStudentCourse.student.studentName}</td>
+                    <td>${tempStudentCourse.course.courseName}</td>
+                    <td>
+                        <!-- display the update link -->
+                        <a href="${updateStudentCourseLink}">Update</a>
+                        |
+                        <a href="${deleteStudentCourseLink}"
+                           onclick="if (!(confirm('Are you sure you want to delete this StudentCourse?'))) return false">Delete</a>
+                    </td>
+
+                </tr>
+            </c:forEach>
+        </table>
+        <br><br/>
+
     </div>
 </div>
 </body>

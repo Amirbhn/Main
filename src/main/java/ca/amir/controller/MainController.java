@@ -2,7 +2,6 @@
 package ca.amir.controller;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,17 +25,21 @@ public class MainController {
 
     @GetMapping("/allEntities")
     @Transactional
-    public String listOfAllCourses(Model theModel) {
+    public String listOfAllEntities(Model theModel) {
 
         // get customers from the dao
         List<Course> theCourses = courseService.getAllCourses();
         List<Student> theStudents = courseService.getAllStudents();
         List<Teacher> theTeachers = courseService.getAllTeachers();
+        List<TeacherCourse> theTeacherCourses = courseService.getAllTeacherCourses();
+        List<StudentCourse> theStudentCourses = courseService.getAllStudentCourses();
 
         // add the customers to the model
         theModel.addAttribute("allCourses", theCourses);
         theModel.addAttribute("allStudents", theStudents);
         theModel.addAttribute("allTeachers", theTeachers);
+        theModel.addAttribute("allTeacherCourses", theTeacherCourses);
+        theModel.addAttribute("allStudentCourses", theStudentCourses);
         return "list_of_all_entities";
     }
 
@@ -63,6 +66,40 @@ public class MainController {
         theModel.addAttribute("teacher", theTeacher);
         return "teacher-form";
     }
+
+    @RequestMapping(value = "/showFormForAddStudentCourse", method = {RequestMethod.GET, RequestMethod.POST})
+    public String showFormForAddStudentCourse(Model theModel,
+                                              @RequestParam(value = "studentId", required = false) Integer studentId,
+                                              @RequestParam(value = "courseId", required = false) Integer courseId,
+                                              @RequestParam(value = "coursesIds", required = false) String[] coursesIds,
+                                              @RequestParam(value = "submit", required = false) String submit) {
+        if ("1".equals(submit)) {
+            for (int i = 0; i <coursesIds.length ; i++) {
+                int courseIdSelected = Integer.parseInt(coursesIds[i]);
+                StudentCourse studentCourse = new StudentCourse();
+                Course course = courseService.getCourseById(courseIdSelected);
+                Student student = courseService.getStudentById(studentId);
+                studentCourse.setStudent(student);
+                studentCourse.setCourse(course);
+            }
+
+        }
+
+
+        List<Student> students = courseService.getAllStudents();
+        List<Course> courses = courseService.getAllCourses();
+        List<TeacherCourse> teacherCourses = courseService.getAllTeacherCourses();
+
+        Map<String, Object> objects = new HashMap<>();
+
+        objects.put("students", students);
+        objects.put("courses", courses);
+        objects.put("teacherCourses", teacherCourses);
+        theModel.addAttribute("objects", objects);
+        return "student-course-form";
+    }
+
+
 
     @RequestMapping(value = "/showFormForAddTeacherCourse", method = {RequestMethod.GET, RequestMethod.POST})
     public String showFormForAddTeacherCourse(
