@@ -33,4 +33,12 @@ public interface CourseService {
     List<StudentCourse> getAllStudentCourses();
     void saveStudentCourse(StudentCourse theStudentCourse);
 
+
+    //TeacherStudent
+    TeacherStudent getTeacherStudentById(int theTeacherStudentId);
+    void deleteTeacherStudent(int theTeacherStudentId);
+    List<TeacherStudent> getAllTeacherStudents();
+    void saveTeacherStudent(TeacherStudent theTeacherStudent);
+
+
 }

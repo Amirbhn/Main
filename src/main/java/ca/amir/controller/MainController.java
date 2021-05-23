@@ -1,9 +1,7 @@
 
 package ca.amir.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import ca.amir.entity.*;
 import ca.amir.service.CourseService;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import ca.amir.entity.Course;
 
 import javax.transaction.Transactional;
+
+import static java.lang.Integer.parseInt;
 
 @Controller
 @RequestMapping("/main")
@@ -66,36 +66,6 @@ public class MainController {
         theModel.addAttribute("teacher", theTeacher);
         return "teacher-form";
     }
-
-    @RequestMapping(value = "/showFormForAddStudentCourse", method = {RequestMethod.GET, RequestMethod.POST})
-    public String showFormForAddStudentCourse(Model theModel,
-                                              @RequestParam(value = "studentId", required = false) Integer studentId,
-                                              @RequestParam(value = "courseIdSelected", required = false) Integer[] courseIdSelected,
-                                              @RequestParam(value = "submit", required = false) String submit) {
-        if ("1".equals(submit)) {
-            for (Integer courseId: courseIdSelected) {
-                StudentCourse studentCourse = new StudentCourse();
-                Course course = courseService.getCourseById(courseId);
-                Student student = courseService.getStudentById(studentId);
-                studentCourse.setStudent(student);
-                studentCourse.setCourse(course);
-                courseService.saveStudentCourse(studentCourse);
-            }
-        }
-
-        List<Student> students = courseService.getAllStudents();
-        List<Course> courses = courseService.getAllCourses();
-
-        Map<String, Object> objects = new HashMap<>();
-        objects.put("students", students);
-        objects.put("courses", courses);
-
-        theModel.addAttribute("objects", objects);
-        return "student-course-form";
-    }
-
-
-
     @RequestMapping(value = "/showFormForAddTeacherCourse", method = {RequestMethod.GET, RequestMethod.POST})
     public String showFormForAddTeacherCourse(
             Model theModel,
@@ -119,6 +89,39 @@ public class MainController {
         objects.put("courses", courses);
         theModel.addAttribute("objects", objects);
         return "/teacher-course-form";
+    }
+
+    @RequestMapping(value = "/showFormForAddStudentCourse", method = {RequestMethod.GET, RequestMethod.POST} )
+    public String showFormForAddStudentCourse(Model theModel,
+                                              @RequestParam(value = "studentId", required = false) Integer studentId,
+                                              @RequestParam(value = "courseIdSelected", required = false) Integer[] courseIdSelected,
+                                              @RequestParam(value = "submit", required = false) String submit) {
+        if ("1".equals(submit)) {
+            for (Integer courseId : courseIdSelected) {
+                List<StudentCourse> studentCourse = courseService.getAllStudentCourses();
+                for (StudentCourse studentCourse1 : studentCourse) {
+                    if (studentCourse1.getStudent().getStudentId() == studentId && studentCourse1.getCourse().getCourseId() == courseId) {
+                        return "this-course-has-already- been-added";
+                    }
+                }
+                StudentCourse newStudentCourse = new StudentCourse();
+                Course course = courseService.getCourseById(courseId);
+                Student student = courseService.getStudentById(studentId);
+                newStudentCourse.setStudent(student);
+                newStudentCourse.setCourse(course);
+                courseService.saveStudentCourse(newStudentCourse);
+            }
+        }
+
+        List<Student> students = courseService.getAllStudents();
+        List<Course> courses = courseService.getAllCourses();
+
+        Map<String, Object> objects = new HashMap<>();
+        objects.put("students", students);
+        objects.put("courses", courses);
+
+        theModel.addAttribute("objects", objects);
+        return "student-course-form";
     }
 
 
@@ -188,6 +191,51 @@ public class MainController {
         theModel.addAttribute("teacherCourse", theTeacherCourse);
         // send over to our form
         return "teacher-course-form";
+    }
+
+    @RequestMapping(value = "/showFormForAddTeacherStudent",method = {RequestMethod.GET,RequestMethod.POST})
+    public String showFormForAddTeacherStudent(
+            Model model,
+            @RequestParam("theTeacher") String teacherName ){
+        return "teacher-student-form";
+    }
+
+    @GetMapping("/showListOfStudentsBasedOnTeacherName")
+    public String showListOfStudentsBasedOnTeacherId(
+            @RequestParam("teacherName") String teacherName,
+            Model model) {
+
+        List<TeacherCourse> teacherCourses = courseService.getAllTeacherCourses();
+        List<StudentCourse> studentCourses = courseService.getAllStudentCourses();
+        List <Student>students = new ArrayList<>();
+        Teacher theTeacher = new Teacher();
+
+        int courseIdAssociatedWithTeacher = 0;
+
+        for (TeacherCourse teacherCourse : teacherCourses) {
+            if (teacherCourse.getTeacher().getTeacherName().equals(teacherName)) {
+                courseIdAssociatedWithTeacher = teacherCourse.getCourse().getCourseId();
+            theTeacher = teacherCourse.getTeacher();}}
+        for (StudentCourse studentCourse :studentCourses){
+            if(studentCourse.getCourse().getCourseId()==courseIdAssociatedWithTeacher){
+                students.add(studentCourse.getStudent());
+            }
+            model.addAttribute("theTeacher",theTeacher);
+            model.addAttribute("students",students);
+        }
+        return "teacher-student-form";
+    }
+
+/*    @GetMapping("/getTeacherId")
+    public String getTeacherId(HttpServletRequest request, Model model) {
+        int selectedTeacherId = parseInt(request.getParameter("teacherId"));
+        model.addAttribute("teacherId", selectedTeacherId);
+        return "get-teacher-id";
+    }*/
+
+    @GetMapping("/getTeacherId")
+    public String getTeacherId() {
+        return "get-teacher-name";
     }
 
     @GetMapping("/deleteCourse")

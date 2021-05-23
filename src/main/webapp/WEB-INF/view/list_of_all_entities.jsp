@@ -211,6 +211,10 @@
             </c:forEach>
         </table>
         <br><br/>
+        <%-------------------------------------------------TeacherStudent Link-----------------------------------------------%>
+        <a href="/main/getTeacherId">Teachers Click Here To Enter their teacher id then enter grades</a>
+
+
 
     </div>
 </div>

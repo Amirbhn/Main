@@ -5,7 +5,7 @@ import ca.amir.entity.*;
 
 
 public interface CourseDAO {
-
+    //Course
     Course getCourseById(int theCourseId);
     void deleteCourse(int theCourseId);
     List<Course> getAllCourses();
@@ -34,6 +34,16 @@ public interface CourseDAO {
     void deleteStudentCourse(int theStudentCourseId);
     List<StudentCourse> getAllStudentCourses();
     void saveStudentCourse(StudentCourse theStudentCourse);
+
+    //TeacherStudent
+    TeacherStudent getTeacherStudentById(int theTeacherStudentId);
+    void deleteTeacherStudent(int theTeacherStudentId);
+    List<TeacherStudent> getAllTeacherStudents();
+    void saveTeacherStudent(TeacherStudent theTeacherStudent);
+
+
+
+
 
 
 }
