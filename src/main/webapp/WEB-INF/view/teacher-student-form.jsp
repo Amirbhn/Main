@@ -15,41 +15,37 @@
     <title>Please enter Students Grades</title>
 </head>
 <body>
+<jsp:useBean id="objects" scope="request" type="ca.amir.controller.MainController.TeacherStudentForm"/>
 
-Teacher name is : ${theTeacher.teacherName}
+Teacher name is : ${objects.theTeacher.teacherName}
 <br><br>
-Teacher email is : ${theTeacher.teacherEmail}
+Teacher email is : ${objects.theTeacher.teacherEmail}
 <br><br>
-Teacher ID is : ${theTeacher.teacherId}
+Teacher ID is : ${objects.theTeacher.teacherId}
 <br><br>
-<input type="hidden" name="selectedTeacherId" value="${theTeacher.teacherId}">
 
-<table>
-
-    <tr>
-        <td>teacher name</td>
-        <td>student name</td>
-        <td> grade</td>
-        <td> submit</td>
-    </tr>
-
-
-<c:forEach items="${students}" var="student">
-        <form:form  action="showFormForAddTeacherStudent" method="post">
-            <input type="hidden" name="selectedStudentId" value="${student.studentId}">
-
+    <table>
+        <tr>
+            <td>course name</td>
+            <td>student name</td>
+            <td>grade</td>
+            <td>submit</td>
+        </tr>
+<form:form action="showListOfStudentsBasedOnTeacherName?teacherId=${objects.theTeacher.teacherId}" method="post" modelAttribute="objects">
+        <c:forEach items="${objects.studentTeacherCourses}" var="studentTeacherCourse">
             <tr>
-                <td>${theTeacher.teacherName}</td>
-                <td>${student.studentName} ${student.studentFamily}</td>
-                <td><input type="text" name="givenGrade" placeholder="Please Enter the grade"/>
-                <td><input type="submit" value="submit" /></td>
+                <td>${studentTeacherCourse.teacherCourse.course.courseName}<sub> (<b>${studentTeacherCourse.teacherCourse.teacher.teacherName}</b>)</sub></td>
+                <td>${studentTeacherCourse.student.studentName} ${studentTeacherCourse.student.studentFamily}</td>
+                <td><input type="number" name="grade" placeholder="Please Enter the grade" value="${studentTeacherCourse.grade}"/></td>
+                <td>
+                    <input type="hidden" name="studentTeacherCourseId" value="${studentTeacherCourse.studentTeacherCourseId}">
+                    <input type="submit" value="submit"/>
                 </td>
             </tr>
+        </c:forEach>
+    </table>
+</form:form>
 
-        </form:form>
-</c:forEach>
-
-</table>
 
 </body>
 </html>

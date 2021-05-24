@@ -5,7 +5,8 @@
   Time: 7:51 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Teacher Name</title>
@@ -13,10 +14,18 @@
 <body>
 Teacher Name
 
-<form action="showListOfStudentsBasedOnTeacherName" method="GET" >
-    <input type="text" name="teacherName" placeholder="What's your name?"/>
+<form:form action="showListOfStudentsBasedOnTeacherName" modelAttribute="objects" method="GET">
+    <jsp:useBean id="objects" scope="request" type="ca.amir.controller.MainController.TeacherSelectForm"/>
+
+    <select name="teacherId">
+        <c:forEach items="${objects.teachers}" var="teacher">
+            <option value="${teacher.teacherId}">${teacher.teacherName}</option>
+        </c:forEach>
+    </select>
+
     <input type="submit"/>
-</form>
+    <form:button/>
+</form:form>
 
 
 </body>

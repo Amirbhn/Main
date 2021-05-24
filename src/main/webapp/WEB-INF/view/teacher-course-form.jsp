@@ -30,8 +30,8 @@
             </td>
             <td>
                 <select name="courseId">
-                    <c:forEach items="${objects.courses}" var="course">
-                        <option value="${course.courseId}">${course.courseName}</option>
+                    <c:forEach items="${objects.courses}" var="courseTeacher">
+                        <option value="${courseTeacher.courseId}">${courseTeacher.courseName}</option>
                     </c:forEach>
                 </select>
             </td>

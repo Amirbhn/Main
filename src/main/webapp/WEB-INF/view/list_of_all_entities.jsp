@@ -20,6 +20,8 @@
                onclick="window.location.href='showFormForAddCourse'; return false;"
                class="add-button"
         />
+        <jsp:useBean id="objects" scope="request" type="ca.amir.controller.MainController.AllEntityForm"/>
+
 <%-------------------------------------------------Course Table---------------------------------------------------%>
         <table>
             <tr>
@@ -27,7 +29,7 @@
                 <th>Action</th>
             </tr>
             <!-- loop over and print our passengers -->
-            <c:forEach var="tempCourse" items="${allCourses}">
+            <c:forEach var="tempCourse" items="${objects.theCourses}">
 
                 <c:url var="updateCourseLink" value="/main/showFormForUpdateCourse">
                     <c:param name="courseId" value="${tempCourse.courseId}"/>
@@ -69,7 +71,7 @@
                 <th>Action</th>
             </tr>
             <!-- loop over and print our Students -->
-            <c:forEach var="tempStudent" items="${allStudents}">
+            <c:forEach var="tempStudent" items="${objects.theStudents}">
 
                 <c:url var="updateStudentLink" value="/main/showFormForUpdateStudent">
                     <c:param name="studentId" value="${tempStudent.studentId}"/>
@@ -111,7 +113,7 @@
                 <th>Action</th>
             </tr>
             <!-- loop over and print our passengers -->
-            <c:forEach var="tempTeacher" items="${allTeachers}">
+            <c:forEach var="tempTeacher" items="${objects.theTeachers}">
 
 
                 <c:url var="updateTeacherLink" value="/main/showFormForUpdateTeacher">
@@ -150,7 +152,7 @@
                 <th>Action</th>
             </tr>
             <!-- loop over and print our passengers -->
-            <c:forEach var="tempTeacherCourse" items="${allTeacherCourses}">
+            <c:forEach var="tempTeacherCourse" items="${objects.theTeacherCourses}">
 
                 <c:url var="updateTeacherCourseLink" value="/main/showFormForUpdateTeacherCourse">
                     <c:param name="teacherCourseId" value="${tempTeacherCourse.teacherCourseId}"/>
@@ -161,8 +163,8 @@
                 </c:url>
 
                 <tr>
-                    <td>${tempTeacherCourse.course.courseName}</td>
                     <td>${tempTeacherCourse.teacher.teacherName}</td>
+                    <td>${tempTeacherCourse.course.courseName}</td>
                     <td>
                         <!-- display the update link -->
                         <a href="${updateTeacherCourseLink}">Update</a>
@@ -182,23 +184,25 @@
             <tr>
                 <th>Student Name</th>
                 <th>Course Name</th>
+                <th>Grade</th>
                 <th>Action</th>
             </tr>
 
             <!-- loop over and print our StudentCourseObjects -->
-            <c:forEach var="tempStudentCourse" items="${allStudentCourses}">
+            <c:forEach var="tempStudentCourse" items="${objects.theStudentTeacherCourses}">
 
                 <c:url var="updateStudentCourseLink" value="/main/showFormForUpdateStudentCourse">
-                    <c:param name="studentCourseId" value="${tempStudentCourse.studentCourseId}"/>
+                    <c:param name="studentCourseId" value="${tempStudentCourse.studentTeacherCourseId}"/>
                 </c:url>
 
                 <c:url var="deleteStudentCourseLink" value="/main/deleteStudentCourse">
-                    <c:param name="studentCourseId" value="${tempStudentCourse.studentCourseId}"/>
+                    <c:param name="studentCourseId" value="${tempStudentCourse.studentTeacherCourseId}"/>
                 </c:url>
 
                 <tr>
                     <td>${tempStudentCourse.student.studentName}</td>
-                    <td>${tempStudentCourse.course.courseName}</td>
+                    <td>${tempStudentCourse.teacherCourse.course.courseName}<sub> (<b>${tempStudentCourse.teacherCourse.teacher.teacherName}</b>)</sub></td>
+                    <td>${tempStudentCourse.grade}</td>
                     <td>
                         <!-- display the update link -->
                         <a href="${updateStudentCourseLink}">Update</a>

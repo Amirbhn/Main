@@ -9,6 +9,7 @@
 <body>
 
 <form:form action="showFormForAddStudentCourse" modelAttribute="objects" method="post">
+    <jsp:useBean id="objects" scope="request" type="ca.amir.controller.MainController.StudentCourseForm"/>
 
     <table>
         <tr>
@@ -29,9 +30,9 @@
                 select course(s)
             </td>
             <td>
-                <c:forEach items="${objects.courses}" var="course" >
-                    <input id="course-${course.courseId}" name="courseIdSelected" type="checkbox" value="${course.courseId}" />
-                    <label for="course-${course.courseId}">${course.courseName}</label>
+                <c:forEach items="${objects.teacherCourses}" var="courseTeacher">
+                    <input id="course-${courseTeacher.teacherCourseId}" name="teacherCourseIdSelected" type="checkbox" value="${courseTeacher.teacherCourseId}" />
+                    <label for="course-${courseTeacher.teacherCourseId}">${courseTeacher.course.courseName} <sub>(<b>${courseTeacher.teacher.teacherName}</b>)</sub></label>
                 </c:forEach>
             </td>
         </tr>
