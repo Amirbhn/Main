@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 
 // @Repository will handle translation to JDBC exceptions
 @Repository
+@Transactional
 public class CourseDAOImpl implements CourseDAO {
 
     private final EntityManager em;
@@ -193,7 +194,6 @@ public class CourseDAOImpl implements CourseDAO {
 
 
     @Override
-    @Transactional
     public  void deleteCourse(int theCourseId){
         // delete object with primary key
         em.createQuery("delete from Course c where c.courseId = :courseId", Course.class)
@@ -205,7 +205,6 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    @Transactional
     public  void deleteStudent(int theStudentId){
         // delete object with primary key
         em.createQuery("delete from Student s where s.studentId = :studentId", Student.class)
@@ -217,37 +216,33 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    @Transactional
     public  void deleteTeacher(int theTeacherId){
         // delete object with primary key
-        em.createQuery("delete from Teacher t where t.teacherId = :teacherId", Teacher.class)
+        em.createQuery("delete from Teacher t where t.teacherId = :teacherId")
                 .setParameter("teacherId", theTeacherId)
                 .executeUpdate();
     }
 
     @Override
-    @Transactional
     public  void deleteTeacherCourse(int theTeacherCourseId){
         // delete object with primary key
-        em.createQuery("delete from TeacherCourse tc where tc.teacherCourseId = :teacherCourseId", TeacherCourse.class)
+        em.createQuery("delete from TeacherCourse tc where tc.teacherCourseId = :teacherCourseId")
                 .setParameter("teacherCourseId", theTeacherCourseId)
                 .executeUpdate();
     }
 
     @Override
-    @Transactional
     public  void deleteStudentTeacherCourse(int theStudentTeacherCourseId){
         // delete object with primary key
-        em.createQuery("delete from StudentTeacherCourse stc where stc.studentTeacherCourseId = :studentTeacherCourseId", StudentTeacherCourse.class)
+        em.createQuery("delete from StudentTeacherCourse stc where stc.studentTeacherCourseId = :studentTeacherCourseId")
                 .setParameter("studentTeacherCourseId", theStudentTeacherCourseId)
                 .executeUpdate();
     }
 
     @Override
-    @Transactional
     public  void deleteTeacherStudent(int theTeacherStudentId){
         // delete object with primary key
-        em.createQuery("delete from TeacherStudent ts where ts.teacherStudentId = :teacherStudentId", TeacherStudent.class)
+        em.createQuery("delete from TeacherStudent ts where ts.teacherStudentId = :teacherStudentId")
                 .setParameter("teacherStudentId", theTeacherStudentId)
                 .executeUpdate();
     }
