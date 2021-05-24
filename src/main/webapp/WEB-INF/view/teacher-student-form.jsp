@@ -31,8 +31,8 @@ Teacher ID is : ${objects.theTeacher.teacherId}
             <td>grade</td>
             <td>submit</td>
         </tr>
-<form:form action="showListOfStudentsBasedOnTeacherName?teacherId=${objects.theTeacher.teacherId}" method="post" modelAttribute="objects">
         <c:forEach items="${objects.studentTeacherCourses}" var="studentTeacherCourse">
+            <form:form action="showListOfStudentsBasedOnTeacherName?teacherId=${objects.theTeacher.teacherId}" method="post" modelAttribute="objects">
             <tr>
                 <td>${studentTeacherCourse.teacherCourse.course.courseName}<sub> (<b>${studentTeacherCourse.teacherCourse.teacher.teacherName}</b>)</sub></td>
                 <td>${studentTeacherCourse.student.studentName} ${studentTeacherCourse.student.studentFamily}</td>
@@ -42,9 +42,9 @@ Teacher ID is : ${objects.theTeacher.teacherId}
                     <input type="submit" value="submit"/>
                 </td>
             </tr>
+            </form:form>
         </c:forEach>
     </table>
-</form:form>
 
 
 </body>
