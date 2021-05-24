@@ -2,7 +2,6 @@ package ca.amir.dao;
 import ca.amir.entity.*;
 import java.util.List;
 
-import ca.amir.entity.Passenger;
 import ca.amir.entity.Student;
 import org.springframework.stereotype.Repository;
 import ca.amir.entity.Course;
@@ -27,7 +26,7 @@ public class CourseDAOImpl implements CourseDAO {
     public List<Course> getAllCourses() {
 
         // create a query
-        TypedQuery<Course> theQuery = em.createQuery("from Course order by courseName", Course.class);
+        TypedQuery<Course> theQuery = em.createQuery("select c from Course c order by c.courseName", Course.class);
 
         // execute query and get result list
         List<Course> courses = theQuery.getResultList();
@@ -40,7 +39,7 @@ public class CourseDAOImpl implements CourseDAO {
     public List<Student> getAllStudents() {
 
         // create a query
-        TypedQuery<Student> theQuery = em.createQuery("from Student order by studentName", Student.class);
+        TypedQuery<Student> theQuery = em.createQuery("select s from Student s order by s.studentName", Student.class);
 
         // execute query and get result list
         List<Student> students = theQuery.getResultList();
@@ -54,7 +53,7 @@ public class CourseDAOImpl implements CourseDAO {
     {
 
         // create a query
-        TypedQuery<Teacher> theQuery = em.createQuery("from Teacher order by teacherName", Teacher.class);
+        TypedQuery<Teacher> theQuery = em.createQuery("select t from Teacher t order by t.teacherName", Teacher.class);
 
         // execute query and get result list
         List<Teacher> teachers = theQuery.getResultList();
@@ -67,7 +66,7 @@ public class CourseDAOImpl implements CourseDAO {
     public List<TeacherCourse> getAllTeacherCourses() {
 
         // create a query
-        TypedQuery<TeacherCourse> theQuery = em.createQuery("from TeacherCourse order by teacherCourseId", TeacherCourse.class);
+        TypedQuery<TeacherCourse> theQuery = em.createQuery("select tc from TeacherCourse tc order by tc.teacherCourseId", TeacherCourse.class);
 
         // execute query and get result list
         List<TeacherCourse> teacherCourse = theQuery.getResultList();
@@ -77,13 +76,13 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public List<StudentCourse> getAllStudentCourses() {
+    public List<StudentTeacherCourse> getAllStudentTeacherCourses() {
 
         // create a query
-        TypedQuery<StudentCourse> theQuery = em.createQuery("from StudentCourse order by studentCourseId", StudentCourse.class);
+        TypedQuery<StudentTeacherCourse> theQuery = em.createQuery("select stc from StudentTeacherCourse stc order by stc.studentTeacherCourseId", StudentTeacherCourse.class);
 
         // execute query and get result list
-        List<StudentCourse> studentCourse = theQuery.getResultList();
+        List<StudentTeacherCourse> studentCourse = theQuery.getResultList();
 
         // return the results
         return studentCourse;
@@ -93,7 +92,7 @@ public class CourseDAOImpl implements CourseDAO {
     public List<TeacherStudent> getAllTeacherStudents() {
 
         // create a query
-        TypedQuery<TeacherStudent> theQuery = em.createQuery("from TeacherStudent order by teacherStudentId", TeacherStudent.class);
+        TypedQuery<TeacherStudent> theQuery = em.createQuery("select ts from TeacherStudent ts order by ts.teacherStudentId", TeacherStudent.class);
 
         // execute query and get result list
         List<TeacherStudent> teacherStudent = theQuery.getResultList();
@@ -136,10 +135,10 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     @Transactional
-    public void saveStudentCourse(StudentCourse theStudentCourse) {
+    public void saveStudentTeacherCourse(StudentTeacherCourse theStudentTeacherCourse) {
         // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
         //
-        em.merge(theStudentCourse);
+        em.merge(theStudentTeacherCourse);
     }
 
     @Override
@@ -178,10 +177,10 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public StudentCourse getStudentCourseById(int studentCourseId) {
+    public StudentTeacherCourse getStudentTeacherCourseById(int studentCourseId) {
         // now retrieve/read from database using the primary key
-        StudentCourse theStudentCourse = em.find(StudentCourse.class, studentCourseId);
-        return theStudentCourse;
+        StudentTeacherCourse theStudentTeacherCourse = em.find(StudentTeacherCourse.class, studentCourseId);
+        return theStudentTeacherCourse;
     }
 
 
@@ -197,7 +196,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Transactional
     public  void deleteCourse(int theCourseId){
         // delete object with primary key
-        em.createNativeQuery("delete from Course where course_id=:courseId", Course.class)
+        em.createQuery("delete from Course c where c.courseId = :courseId", Course.class)
                 .setParameter("courseId", theCourseId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
@@ -209,7 +208,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Transactional
     public  void deleteStudent(int theStudentId){
         // delete object with primary key
-        em.createNativeQuery("delete from Student where student_id=:studentId", Student.class)
+        em.createQuery("delete from Student s where s.studentId = :studentId", Student.class)
                 .setParameter("studentId", theStudentId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseId=:courseId and e.completedDate IS NULL", Course.class);
@@ -221,7 +220,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Transactional
     public  void deleteTeacher(int theTeacherId){
         // delete object with primary key
-        em.createNativeQuery("delete from Teacher where teacher_id=:teacherId", Teacher.class)
+        em.createQuery("delete from Teacher t where t.teacherId = :teacherId", Teacher.class)
                 .setParameter("teacherId", theTeacherId)
                 .executeUpdate();
     }
@@ -230,17 +229,17 @@ public class CourseDAOImpl implements CourseDAO {
     @Transactional
     public  void deleteTeacherCourse(int theTeacherCourseId){
         // delete object with primary key
-        em.createNativeQuery("delete from TeacherCourse where teacher_course_id=:teacherCourseId", TeacherCourse.class)
+        em.createQuery("delete from TeacherCourse tc where tc.teacherCourseId = :teacherCourseId", TeacherCourse.class)
                 .setParameter("teacherCourseId", theTeacherCourseId)
                 .executeUpdate();
     }
 
     @Override
     @Transactional
-    public  void deleteStudentCourse(int theStudentCourseId){
+    public  void deleteStudentTeacherCourse(int theStudentTeacherCourseId){
         // delete object with primary key
-        em.createNativeQuery("delete from StudentCourse where student_course_id=:studentCourseId", StudentCourse.class)
-                .setParameter("studentCourseId", theStudentCourseId)
+        em.createQuery("delete from StudentTeacherCourse stc where stc.studentTeacherCourseId = :studentTeacherCourseId", StudentTeacherCourse.class)
+                .setParameter("studentTeacherCourseId", theStudentTeacherCourseId)
                 .executeUpdate();
     }
 
@@ -248,7 +247,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Transactional
     public  void deleteTeacherStudent(int theTeacherStudentId){
         // delete object with primary key
-        em.createNativeQuery("delete from TeacherStudent where teacher-student-id=:teacherStudentId", TeacherStudent.class)
+        em.createQuery("delete from TeacherStudent ts where ts.teacherStudentId = :teacherStudentId", TeacherStudent.class)
                 .setParameter("teacherStudentId", theTeacherStudentId)
                 .executeUpdate();
     }
