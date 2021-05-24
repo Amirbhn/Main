@@ -1,10 +1,13 @@
 package ca.amir.entity;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "teacherStudent")
+@Data
 public class TeacherStudent {
 
     @Id
@@ -23,39 +26,4 @@ public class TeacherStudent {
     @Column(name = "grade")
     private String grade;
 
-
-    public TeacherStudent() {
-    }
-
-    public int getTeacherStudentId() {
-        return teacherStudentId;
-    }
-
-    public void setTeacherStudentId(int teacherStudentId) {
-        this.teacherStudentId = teacherStudentId;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
 }

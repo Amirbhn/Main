@@ -1,5 +1,7 @@
 package ca.amir.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
+@Data
 public class Student {
 
     @Id
@@ -31,65 +34,4 @@ public class Student {
     @Column(name = "student_email")
     private String studentEmail;
 
-    public Student() {
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String name) {
-        this.studentName = name;
-    }
-
-    public String getStudentFamily() {
-        return studentFamily;
-    }
-
-    public void setStudentFamily(String family) {
-        this.studentFamily = family;
-    }
-
-    public String getStudentBirthdate() {
-        return studentBirthdate;
-    }
-
-    public void setStudentBirthdate(String birthdate) {
-        this.studentBirthdate = birthdate;
-    }
-
-    public String getStudentGender() {
-        return studentGender;
-    }
-
-    public void setStudentGender(String gender) {
-        this.studentGender = gender;
-    }
-
-    public String getStudentEmail() {
-        return studentEmail;
-    }
-
-    public void setStudentEmail(String email) {
-        this.studentEmail = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                ", name='" + studentName + '\'' +
-                ", family='" + studentFamily + '\'' +
-                ", birthdate='" + studentBirthdate + '\'' +
-                ", gender='" + studentGender + '\'' +
-                ", email='" + studentEmail + '\'' +
-                '}';
-    }
 }
