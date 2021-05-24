@@ -3,11 +3,9 @@ import ca.amir.entity.*;
 
 import java.util.List;
 
-import ca.amir.dao.PassengerDAO;
 import ca.amir.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ca.amir.dao.CourseDAO;
 
 @Service
@@ -37,8 +35,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<StudentCourse> getAllStudentCourses() {
-        return courseDAO.getAllStudentCourses();
+    public List<StudentTeacherCourse> getAllStudentTeacherCourses() {
+        return courseDAO.getAllStudentTeacherCourses();
     }
 
     @Override
@@ -67,8 +65,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void saveStudentCourse(StudentCourse theStudentCourse) {
-        courseDAO.saveStudentCourse(theStudentCourse);
+    public void saveStudentTeacherCourse(StudentTeacherCourse theStudentTeacherCourse) {
+        courseDAO.saveStudentTeacherCourse(theStudentTeacherCourse);
     }
 
     @Override
@@ -97,8 +95,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public StudentCourse getStudentCourseById(int theStudentCourseId) {
-        return courseDAO.getStudentCourseById(theStudentCourseId);
+    public StudentTeacherCourse getStudentTeacherCourseById(int theStudentTeacherCourseId) {
+        return courseDAO.getStudentTeacherCourseById(theStudentTeacherCourseId);
     }
 
     @Override
@@ -127,8 +125,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteStudentCourse(int theStudentCourseId) {
-        courseDAO.deleteStudentCourse(theStudentCourseId);
+    public void deleteStudentTeacherCourse(int theStudentTeacherCourseId) {
+        courseDAO.deleteStudentTeacherCourse(theStudentTeacherCourseId);
     }
 
     @Override

@@ -30,10 +30,10 @@ public interface CourseDAO {
     void saveTeacherCourse(TeacherCourse theTeacherCourse);
 
     //StudentCourse
-    StudentCourse getStudentCourseById(int theStudentCourseId);
-    void deleteStudentCourse(int theStudentCourseId);
-    List<StudentCourse> getAllStudentCourses();
-    void saveStudentCourse(StudentCourse theStudentCourse);
+    StudentTeacherCourse getStudentTeacherCourseById(int theStudentTeacherCourseId);
+    void deleteStudentTeacherCourse(int theStudentTeacherCourseId);
+    List<StudentTeacherCourse> getAllStudentTeacherCourses();
+    void saveStudentTeacherCourse(StudentTeacherCourse theStudentCourse);
 
     //TeacherStudent
     TeacherStudent getTeacherStudentById(int theTeacherStudentId);

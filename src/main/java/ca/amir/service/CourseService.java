@@ -28,10 +28,10 @@ public interface CourseService {
     void saveTeacherCourse(TeacherCourse theTeacherCourse);
 
     //StudentCourse
-    StudentCourse getStudentCourseById(int theStudentCourseId);
-    void deleteStudentCourse(int theStudentCourseId);
-    List<StudentCourse> getAllStudentCourses();
-    void saveStudentCourse(StudentCourse theStudentCourse);
+    StudentTeacherCourse getStudentTeacherCourseById(int StudentTeacherCourseId);
+    void deleteStudentTeacherCourse(int StudentTeacherCourseId);
+    List<StudentTeacherCourse> getAllStudentTeacherCourses();
+    void saveStudentTeacherCourse(StudentTeacherCourse StudentTeacherCourse);
 
 
     //TeacherStudent
