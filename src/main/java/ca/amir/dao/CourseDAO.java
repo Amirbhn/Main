@@ -29,7 +29,7 @@ public interface CourseDAO {
     List<TeacherCourse> getAllTeacherCourses();
     void saveTeacherCourse(TeacherCourse theTeacherCourse);
 
-    //StudentCourse
+    //StudentTeacherCourse
     StudentTeacherCourse getStudentTeacherCourseById(int theStudentTeacherCourseId);
     void deleteStudentTeacherCourse(int theStudentTeacherCourseId);
     List<StudentTeacherCourse> getAllStudentTeacherCourses();

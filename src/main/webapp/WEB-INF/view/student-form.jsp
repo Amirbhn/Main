@@ -3,91 +3,73 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Save Student</title>
+    <head>
+        <title>Save Student</title>
+        <style>
+            .content-table{
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                min-width: 400px;
+                border-radius: 5px 5px 0 0;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            }
 
-    <link type="text/css"
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/static/style.css">
+            .content-table thead tr {
+                background-color: #009879;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
 
-    <link type="text/css"
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/static/add-passenger-style.css">
-</head>
+            .content-table th,
+            .content-table td{
+                padding: 12px 15px;
+            }
 
-<body>
+            .content-table tbody tr{
+                border-bottom: 1px solid #dddddd;
+            }
 
-<div id="wrapper">
-    <div id="header">
-        <h2>Student Management</h2>
-    </div>
-</div>
+            .content-table tbody tr:nth-of-type(even){
+                background-color: #f3f3f3;
+            }
 
-<div id="container">
-    <h3>Save Student</h3>
+            .content-table tbody tr:last-of-type{
+                border-bottom: 2px solid #009879;
+            }
 
-    <!--
-        By clicking on submit button on the form method with @PostMapping("/saveCourse") in controller will be called
-        Moreover, these fields will be saved as and object. This object will be added to Model object HashMap
-        attribute by "course" key,
-
-            @PostMapping("/saveCourse")
-            public String saveCourse(@ModelAttribute("course") Course theCourse)
-
-        so saveCourse method will receive it as an argument and will cast it to Course object
-    -->
-    <form:form action="saveStudent" modelAttribute="student" method="POST">
-
-        <!-- need to associate this data with student id -->
-        <form:hidden path="studentId"/>
-
-        <table>
-            <tbody>
-            <tr>
-                <td><label>Student name:</label></td>
-                <td><form:input path="studentName"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Student Family:</label></td>
-                <td><form:input path="studentFamily"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Student Birthdate:</label></td>
-                <td><form:input path="studentBirthdate"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Student Gender:</label></td>
-                <td><form:input path="studentGender"/></td>
-            </tr>
-
-            <tr>
-                <td><label>Student Email:</label></td>
-                <td><form:input path="studentEmail"/></td>
-            </tr>
-
-
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save"/></td>
-            </tr>
-
-            </tbody>
-        </table>
-
-
-    </form:form>
-
-    <div style="clear; both;"></div>
-
-    <p>
-        <a href="${pageContext.request.contextPath}/main/allEntities">Back to List</a>
-    </p>
-
-</div>
-
-</body>
-
+        </style>
+    </head>
+    <body>
+        <table class="content-table">
+            <form:form action="saveStudent" modelAttribute="student" method="POST">
+            <form:hidden path="studentId"/>
+               <thead>
+                   <tr>
+                       <td>Student name</td>
+                       <td>Student Family</td>
+                       <td>Student Birthdate</td>
+                       <td>Student Gender</td>
+                       <td>Student Email</td>
+                       <td>Add</td>
+                   </tr>
+               </thead>
+                <tbody>
+                    <tr>
+                        <td><form:input path="studentName"/></td>
+                        <td><form:input path="studentFamily"/></td>
+                        <td><form:input path="studentBirthdate"/></td>
+                        <td><form:input path="studentGender"/></td>
+                        <td><form:input path="studentEmail"/></td>
+                        <td><input type="submit" value="Save" class="save"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form:form>
+        <p>
+            <a href="${pageContext.request.contextPath}/main/allEntities">Back to List</a>
+        </p>
+    </body>
 </html>

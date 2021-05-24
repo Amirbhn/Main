@@ -27,7 +27,7 @@ public interface CourseService {
     List<TeacherCourse> getAllTeacherCourses();
     void saveTeacherCourse(TeacherCourse theTeacherCourse);
 
-    //StudentCourse
+    //StudentTeacherCourse
     StudentTeacherCourse getStudentTeacherCourseById(int StudentTeacherCourseId);
     void deleteStudentTeacherCourse(int StudentTeacherCourseId);
     List<StudentTeacherCourse> getAllStudentTeacherCourses();

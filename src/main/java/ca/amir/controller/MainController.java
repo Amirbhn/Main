@@ -115,16 +115,16 @@ public class MainController {
                     .stream()
                     .anyMatch(studentTeacherCourse ->
                         studentTeacherCourse.getStudent().getStudentId() == studentId &&
-                            teacherCourseId == studentTeacherCourse.getStudentTeacherCourseId());
+                            teacherCourseId == studentTeacherCourse.getTeacherCourse().getTeacherCourseId());
                 if (hasDuplicate) {
-                    return "this-course-has-already-been-added";
+                    return "this-course-has-already- been-added";
                 }
 
                 StudentTeacherCourse newStudentTeacherCourse = new StudentTeacherCourse();
-                TeacherCourse course = courseService.getTeacherCourseById(teacherCourseId);
+                TeacherCourse teacherCourse = courseService.getTeacherCourseById(teacherCourseId);
                 Student student = courseService.getStudentById(studentId);
                 newStudentTeacherCourse.setStudent(student);
-                newStudentTeacherCourse.setTeacherCourse(course);
+                newStudentTeacherCourse.setTeacherCourse(teacherCourse);
                 courseService.saveStudentTeacherCourse(newStudentTeacherCourse);
             }
         }
@@ -255,13 +255,6 @@ public class MainController {
         Teacher theTeacher;
         List<StudentTeacherCourse> studentTeacherCourses;
     }
-
-/*    @GetMapping("/getTeacherId")
-    public String getTeacherId(HttpServletRequest request, Model model) {
-        int selectedTeacherId = parseInt(request.getParameter("teacherId"));
-        model.addAttribute("teacherId", selectedTeacherId);
-        return "get-teacher-id";
-    }*/
 
     @GetMapping("/getTeacherId")
     public String getTeacherId(Model model) {

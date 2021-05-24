@@ -2,78 +2,63 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Save Teacher</title>
+        <style>
+           .content-table{
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                min-width: 400px;
+                border-radius: 5px 5px 0 0;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            }
+            .content-table thead tr {
+                background-color: #009879;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+            .content-table th,
+            .content-table td{
+                padding: 12px 15px;
+            }
+            .content-table tbody tr{
+                border-bottom: 1px solid #dddddd;
+            }
 
-<head>
-    <title>Save Teacher</title>
+            .content-table tbody tr:nth-of-type(even){
+                background-color: #f3f3f3;
+            }
 
-    <link type="text/css"
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/style.css">
+            .content-table tbody tr:last-of-type{
+                border-bottom: 2px solid #009879;
+            }
+        </style>
+    </head>
+    <body>
+        <table class="content-table">
+        <form:form action="saveTeacher" modelAttribute="teacher" method="POST">
+            <form:hidden path="teacherId"/>
+              <thead>
+                  <tr>
+                      <td>Teacher name</td>
+                      <td>Teacher Email</td>
+                      <td>Save</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><form:input path="teacherName"/></td>
+                      <td><form:input path="teacherEmail"/></td>
+                      <td><input type="submit" value="Save" class="save"/></td>
+                  </tr>
+              </tbody>
+        </form:form>
+        <p>
+            <a href="${pageContext.request.contextPath}/main/allEntities">Back to List</a>
+        </p>
 
-    <link type="text/css"
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/add-passenger-style.css">
-</head>
-
-<body>
-
-<div id="wrapper">
-    <div id="header">
-        <h2>Teacher Management</h2>
-    </div>
-</div>
-
-<div id="container">
-    <h3>Save Teacher</h3>
-
-    <!--
-        By clicking on submit button on the form method with @PostMapping("/saveCourse") in controller will be called
-        Moreover, these fields will be saved as and object. This object will be added to Model object HashMap
-        attribute by "course" key,
-
-            @PostMapping("/saveCourse")
-            public String saveCourse(@ModelAttribute("course") Course theCourse)
-
-        so saveCourse method will receive it as an argument and will cast it to Course object
-    -->
-    <form:form action="saveTeacher" modelAttribute="teacher" method="POST">
-
-        <!-- need to associate this data with student id -->
-        <form:hidden path="teacherId"/>
-
-        <table>
-            <tbody>
-            <tr>
-                <td><label>Teacher name:</label></td>
-                <td><form:input path="teacherName"/></td>
-            </tr>
-
-
-            <tr>
-                <td><label>Teacher Email:</label></td>
-                <td><form:input path="teacherEmail"/></td>
-            </tr>
-
-
-            <tr>
-                <td><label></label></td>
-                <td><input type="submit" value="Save" class="save"/></td>
-            </tr>
-
-            </tbody>
-        </table>
-
-
-    </form:form>
-
-    <div style="clear; both;"></div>
-
-    <p>
-        <a href="${pageContext.request.contextPath}/main/allEntities">Back to List</a>
-    </p>
-
-</div>
-
-</body>
-
+    </body>
 </html>
