@@ -196,7 +196,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public  void deleteCourse(int theCourseId){
         // delete object with primary key
-        em.createQuery("delete from Course c where c.courseId = :courseId", Course.class)
+        em.createQuery("delete from Course c where c.courseId = :courseId")
                 .setParameter("courseId", theCourseId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
@@ -207,7 +207,7 @@ public class CourseDAOImpl implements CourseDAO {
     @Override
     public  void deleteStudent(int theStudentId){
         // delete object with primary key
-        em.createQuery("delete from Student s where s.studentId = :studentId", Student.class)
+        em.createQuery("delete from Student s where s.studentId = :studentId")
                 .setParameter("studentId", theStudentId)
                 .executeUpdate();
         /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseId=:courseId and e.completedDate IS NULL", Course.class);
