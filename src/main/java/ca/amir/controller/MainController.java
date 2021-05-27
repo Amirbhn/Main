@@ -1,6 +1,5 @@
 
 package ca.amir.controller;
-
 import ca.amir.entity.*;
 import ca.amir.service.CourseService;
 import lombok.Value;
@@ -247,7 +246,7 @@ public class MainController {
 
         model.addAttribute("objects", new TeacherStudentForm(theTeacher, studentTeacherCourses));
 
-        return "teacher-student-form";
+        return "student-teacher-course-form";
     }
 
     @Value
@@ -296,12 +295,11 @@ public class MainController {
         return "redirect:/main/allEntities";
     }
 
-}
+    @GetMapping("/deleteStudentTeacherCourse")
+    public String deleteStudentTeacherCourse(@RequestParam("studentTeacherCourseId") int theStudentTeacherCourseId) {
+        // delete the StudentTeacherCourse
+        courseService.deleteStudentTeacherCourse(theStudentTeacherCourseId);
+        return "redirect:/main/allEntities";
+    }
 
-/*    @GetMapping("/showFormForAddCourse")
-    public String showFormForAddCourse(Model theModel) {
-        // create model attribute to bind form data
-        Course theCourse = new Course();
-        theModel.addAttribute("course", theCourse);
-        return "course-form";
-    }*/
+}

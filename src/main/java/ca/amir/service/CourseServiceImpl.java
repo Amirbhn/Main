@@ -1,12 +1,13 @@
 package ca.amir.service;
+
 import ca.amir.entity.*;
+import ca.amir.dao.CourseDAO;
+
 
 import java.util.List;
 
-import ca.amir.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ca.amir.dao.CourseDAO;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -40,11 +41,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<TeacherStudent> getAllTeacherStudents() {
-        return courseDAO.getAllTeacherStudents();
-    }
-
-    @Override
     public void saveCourse(Course theCourse) {
         courseDAO.saveCourse(theCourse);
     }
@@ -67,11 +63,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void saveStudentTeacherCourse(StudentTeacherCourse theStudentTeacherCourse) {
         courseDAO.saveStudentTeacherCourse(theStudentTeacherCourse);
-    }
-
-    @Override
-    public void saveTeacherStudent(TeacherStudent theTeacherStudent) {
-        courseDAO.saveTeacherStudent(theTeacherStudent);
     }
 
     @Override
@@ -100,11 +91,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public TeacherStudent getTeacherStudentById(int theTeacherStudentId) {
-        return courseDAO.getTeacherStudentById(theTeacherStudentId);
-    }
-
-    @Override
     public void deleteCourse(int theCourseId) {
         courseDAO.deleteCourse(theCourseId);
     }
@@ -130,8 +116,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteTeacherStudent(int theTeacherStudentId) {
-        courseDAO.deleteTeacherStudent(theTeacherStudentId);
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnStudentId(int theStudentId) {
+        return courseDAO.getStudentTeacherCourseBasedOnStudentId(theStudentId);
+    }
+
+    @Override
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnTeacherId(int theTeacherId) {
+        return courseDAO.getStudentTeacherCourseBasedOnTeacherId(theTeacherId);
+    }
+
+    @Override
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnCourseId(int theCourseId) {
+        return courseDAO.getStudentTeacherCourseBasedOnCourseId(theCourseId);
     }
 
 }

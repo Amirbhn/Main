@@ -21,5 +21,4 @@ public class TeacherCourse {
     @OneToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-
 }

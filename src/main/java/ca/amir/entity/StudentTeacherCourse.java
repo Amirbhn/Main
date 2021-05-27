@@ -24,5 +24,4 @@ public class StudentTeacherCourse {
 
     @Column(name = "grade")
     private Double grade;
-
 }

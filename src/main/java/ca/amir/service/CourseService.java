@@ -1,8 +1,6 @@
 package ca.amir.service;
 import java.util.List;
-import ca.amir.entity.Course;
 import ca.amir.entity.*;
-
 
 public interface CourseService {
     Course getCourseById(int theCourseId);
@@ -33,12 +31,7 @@ public interface CourseService {
     List<StudentTeacherCourse> getAllStudentTeacherCourses();
     void saveStudentTeacherCourse(StudentTeacherCourse StudentTeacherCourse);
 
-
-    //TeacherStudent
-    TeacherStudent getTeacherStudentById(int theTeacherStudentId);
-    void deleteTeacherStudent(int theTeacherStudentId);
-    List<TeacherStudent> getAllTeacherStudents();
-    void saveTeacherStudent(TeacherStudent theTeacherStudent);
-
-
+    List <StudentTeacherCourse> getStudentTeacherCourseBasedOnStudentId(int theStudentId);
+    List<StudentTeacherCourse> getStudentTeacherCourseBasedOnTeacherId(int theTeacherId);
+    List<StudentTeacherCourse> getStudentTeacherCourseBasedOnCourseId(int theCourseId);
 }

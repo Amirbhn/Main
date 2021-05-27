@@ -1,5 +1,6 @@
 package ca.amir.dao;
 import ca.amir.entity.*;
+
 import java.util.List;
 
 import ca.amir.entity.Student;
@@ -16,8 +17,6 @@ import javax.persistence.TypedQuery;
 public class CourseDAOImpl implements CourseDAO {
 
     private final EntityManager em;
-
-
 
     public CourseDAOImpl(EntityManager em) {
         this.em = em;
@@ -90,19 +89,6 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public List<TeacherStudent> getAllTeacherStudents() {
-
-        // create a query
-        TypedQuery<TeacherStudent> theQuery = em.createQuery("select ts from TeacherStudent ts order by ts.teacherStudentId", TeacherStudent.class);
-
-        // execute query and get result list
-        List<TeacherStudent> teacherStudent = theQuery.getResultList();
-
-        // return the results
-        return teacherStudent;
-    }
-
-    @Override
     @Transactional
     public void saveCourse(Course theCourse) {
         // save/update the passenger ... finally LOL // did not work for Update so i changed it to .merge();
@@ -143,13 +129,6 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    @Transactional
-    public void saveTeacherStudent(TeacherStudent theTeacherStudent) {
-
-        em.merge(theTeacherStudent);
-    }
-
-    @Override
     public Course getCourseById(int courseId) {
         // now retrieve/read from database using the primary key
         Course theCourse = em.find(Course.class, courseId);
@@ -184,24 +163,12 @@ public class CourseDAOImpl implements CourseDAO {
         return theStudentTeacherCourse;
     }
 
-
-    @Override
-    public TeacherStudent getTeacherStudentById(int teacherStudentId) {
-        // now retrieve/read from database using the primary key
-        TeacherStudent theTeacherStudent = em.find(TeacherStudent.class, teacherStudentId);
-        return theTeacherStudent;
-    }
-
-
     @Override
     public  void deleteCourse(int theCourseId){
         // delete object with primary key
         em.createQuery("delete from Course c where c.courseId = :courseId")
                 .setParameter("courseId", theCourseId)
                 .executeUpdate();
-        /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseID=:courseId and e.completedDate IS NULL", Course.class);
-        theQuery.setParameter("courseId", theCourseId);
-        theQuery.executeUpdate();*/
     }
 
     @Override
@@ -210,9 +177,6 @@ public class CourseDAOImpl implements CourseDAO {
         em.createQuery("delete from Student s where s.studentId = :studentId")
                 .setParameter("studentId", theStudentId)
                 .executeUpdate();
-        /*TypedQuery<Course> theQuery = em.createQuery("delete from Course c where c.courseId=:courseId and e.completedDate IS NULL", Course.class);
-        theQuery.setParameter("courseId", theCourseId);
-        theQuery.executeUpdate();*/
     }
 
     @Override
@@ -240,12 +204,28 @@ public class CourseDAOImpl implements CourseDAO {
     }
 
     @Override
-    public  void deleteTeacherStudent(int theTeacherStudentId){
-        // delete object with primary key
-        em.createQuery("delete from TeacherStudent ts where ts.teacherStudentId = :teacherStudentId")
-                .setParameter("teacherStudentId", theTeacherStudentId)
-                .executeUpdate();
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnStudentId(int theStudentId) {
+        return em.createQuery("select stc from StudentTeacherCourse stc where stc.student.studentId = :studentId"
+                ,StudentTeacherCourse.class)
+                .setParameter("studentId",theStudentId)
+                .getResultList();
+
     }
 
+    @Override
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnTeacherId(int theTeacherId) {
+        return em.createQuery("select stc from StudentTeacherCourse stc where stc.teacherCourse.teacher.teacherId= :teacherId"
+                ,StudentTeacherCourse.class)
+                .setParameter("teacherId",theTeacherId)
+                .getResultList();
+    }
+
+    @Override
+    public List<StudentTeacherCourse> getStudentTeacherCourseBasedOnCourseId(int theCourseId) {
+        return em.createQuery("select stc from StudentTeacherCourse stc where stc.teacherCourse.course.courseId= :courseId"
+                ,StudentTeacherCourse.class)
+                .setParameter("courseId",theCourseId)
+                .getResultList();
+    }
 
 }

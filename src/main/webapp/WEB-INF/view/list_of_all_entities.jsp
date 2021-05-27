@@ -172,7 +172,6 @@
             </table>
             <br><br/>
 
-
     <%-- -------------------------------------TeacherCourse Table------------------------------------------------------------%>
             <a href="showFormForAddTeacherCourse">Teacher Click Here To Select What Course he wants to Teach</a>
 
@@ -232,8 +231,8 @@
                         <c:param name="studentCourseId" value="${tempStudentCourse.studentTeacherCourseId}"/>
                     </c:url>
 
-                    <c:url var="deleteStudentCourseLink" value="/main/deleteStudentCourse">
-                        <c:param name="studentCourseId" value="${tempStudentCourse.studentTeacherCourseId}"/>
+                    <c:url var="deleteStudentTeacherCourseLink" value="/main/deleteStudentTeacherCourse">
+                        <c:param name="studentTeacherCourseId" value="${tempStudentCourse.studentTeacherCourseId}"/>
                     </c:url>
 
                     <tr>
@@ -242,9 +241,9 @@
                         <td>${tempStudentCourse.grade}</td>
                         <td>
                             <!-- display the update link -->
-                            <a href="${updateStudentCourseLink}">Update</a>
+                            <a href="${updateStudentTeacherCourseLink}">Update</a>
                             |
-                            <a href="${deleteStudentCourseLink}"
+                            <a href="${deleteStudentTeacherCourseLink}"
                                onclick="if (!(confirm('Are you sure you want to delete this StudentCourse?'))) return false">Delete</a>
                         </td>
                     </tr>

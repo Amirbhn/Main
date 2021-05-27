@@ -35,15 +35,8 @@ public interface CourseDAO {
     List<StudentTeacherCourse> getAllStudentTeacherCourses();
     void saveStudentTeacherCourse(StudentTeacherCourse theStudentCourse);
 
-    //TeacherStudent
-    TeacherStudent getTeacherStudentById(int theTeacherStudentId);
-    void deleteTeacherStudent(int theTeacherStudentId);
-    List<TeacherStudent> getAllTeacherStudents();
-    void saveTeacherStudent(TeacherStudent theTeacherStudent);
-
-
-
-
-
-
+    //REST API METHODS
+     List <StudentTeacherCourse> getStudentTeacherCourseBasedOnStudentId(int theStudentId);
+     List<StudentTeacherCourse> getStudentTeacherCourseBasedOnTeacherId(int theTeacherId);
+     List<StudentTeacherCourse> getStudentTeacherCourseBasedOnCourseId(int theCourseId);
 }
